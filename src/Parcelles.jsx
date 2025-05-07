@@ -9,6 +9,8 @@ function Parcelles() {
     taille_carres: '',
     idUser: 'U001' // Remplacer par l'id réel de l'utilisateur
   });
+  // const [zoom, setZoom] = useState(0.6); // 1 = 100%
+  const [zooms, setZooms] = useState({});
 
   useEffect(() => {
     fetch('http://localhost:8000/api/parcelles')
@@ -33,41 +35,66 @@ function Parcelles() {
       .catch(console.error);
   };
 
+  const handleZoomChange = (idParcelle, value) => {
+    setZooms(prev => ({ ...prev, [idParcelle]: parseFloat(value) }));
+  };
+
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <h2>Parcelles</h2>
-      <ul>
-        {parcelles.map(p => (
-          <table key={p.idParcelle} style={{ borderCollapse: "collapse" }}>
-            <caption>{p.libelle}</caption>
-            <tbody>
-              {[...Array(p.longueur / p.taille_carres)].map((_, row) => (
-                <tr key={row}>
-                  {[...Array(p.largeur / p.taille_carres)].map((_, col) => {
-                    const pousse = p.pousses.find(pousse => pousse.x === row && pousse.y === col);
-                    return (
-                      <td
-                        key={col}
-                        className={`${row}-${col}`}
-                        style={{
-                          border: "1px solid black",
-                          width: "30px",
-                          height: "30px",
-                          textAlign: "center",
-                          backgroundColor: pousse ? "#198754" : "#543D35"
-                        }}
-                      >
-                        {/* {row},{col} */}
-                        {/* {pousse ? <div>{pousse.idPousse}</div> : null} */}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ))}
-      </ul>
+          {parcelles.map(p => {
+            const zoom = zooms[p.idParcelle] || 0.6;
+            return (
+              <div style={{ marginBottom: "5rem" }}>
+                <div style={{ marginBottom: "1rem" }}>
+                  <label>Zoom: </label>
+                  <input
+                    type="range"
+                    min="0.3"
+                    max="2"
+                    step="0.01"
+                    value={zoom}
+                    onChange={(e) => handleZoomChange(p.idParcelle, e.target.value)}
+                  />
+                  <span> {Math.round(zoom * 100)}%</span>
+                </div>
+                <h3>{p.libelle}</h3>
+                <div style={{ overflow: "auto", maxWidth: "90vw", minWidth: "60vw", maxHeight: "100vw", minHeight: "30vw" }}>
+                  
+                  <div style={{ transform: `scale(${zoom})`, transformOrigin: "left top" }}>
+                    <table key={p.idParcelle} style={{ borderCollapse: "collapse", width: "max-content", height: "max-content" }}>
+                      {/* <caption>{p.libelle}</caption> */}
+                      <tbody>
+                        {[...Array(p.longueur / p.taille_carres)].map((_, row) => (
+                          <tr key={row}>
+                            {[...Array(p.largeur / p.taille_carres)].map((_, col) => {
+                              const pousse = p.pousses.find(pousse => pousse.x === row && pousse.y === col);
+                              return (
+                                <td
+                                  key={col}
+                                  className={`${row}-${col}`}
+                                  style={{
+                                    border: "1px solid black",
+                                    width: "75px",
+                                    height: "75px",
+                                    textAlign: "center",
+                                    backgroundColor: pousse ? "#198754" : "#543D35"
+                                  }}
+                                >
+                                  {/* {row},{col} */}
+                                  {/* {pousse ? <div>{pousse.idPousse}</div> : null} */}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
   
       <h3>Ajouter une parcelle</h3>
       <form onSubmit={handleSubmit}>
