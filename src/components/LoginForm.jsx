@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LoginForm() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +26,9 @@ function LoginForm() {
       }
 
       const data = await res.json();
-      alert("Connexion réussie ! Voici les données reçues :\n\n" + JSON.stringify(data, null, 2));
+      alert("Connexion réussie !");
       // Redirige ou stocke les infos utilisateur si besoin
+      navigate('/Profile')
     } catch (err) {
       setError(err.message);
     }

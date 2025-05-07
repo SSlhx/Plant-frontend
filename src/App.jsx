@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Parcelles from './Parcelles';
+import Profile from './components/Profile';
+
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
 
           <Route path="/" element={<Home />} />
           <Route path="/parcelles" element={<Parcelles />} />
+          {/* Route pour le Profile */}
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
