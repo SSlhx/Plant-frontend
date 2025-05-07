@@ -7,9 +7,8 @@ function Parcelles() {
     longueur: '',
     largeur: '',
     taille_carres: '',
-    idUser: 'U001' // Remplacer par l'id réel de l'utilisateur
+    idUser: 'U001' // À remplacer par le user connecté quand ça sera dev
   });
-  // const [zoom, setZoom] = useState(0.6); // 1 = 100%
   const [zooms, setZooms] = useState({});
 
   useEffect(() => {
@@ -31,7 +30,7 @@ function Parcelles() {
       body: JSON.stringify(form)
     })
       .then(res => res.json())
-      .then(() => window.location.reload()) // Pour rafraîchir la liste
+      .then(() => window.location.reload())
       .catch(console.error);
   };
 
@@ -40,7 +39,7 @@ function Parcelles() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
       <h2>Parcelles</h2>
           {parcelles.map(p => {
             const zoom = zooms[p.idParcelle] || 0.6;
@@ -59,7 +58,7 @@ function Parcelles() {
                   <span> {Math.round(zoom * 100)}%</span>
                 </div>
                 <h3>{p.libelle}</h3>
-                <div style={{ overflow: "auto", maxWidth: "90vw", minWidth: "60vw", maxHeight: "100vw", minHeight: "30vw" }}>
+                <div style={{ overflow: "auto", maxWidth: "90vw", minWidth: "60vw", maxHeight: "100vw", minHeight: "10vw" }}>
                   
                   <div style={{ transform: `scale(${zoom})`, transformOrigin: "left top" }}>
                     <table key={p.idParcelle} style={{ borderCollapse: "collapse", width: "max-content", height: "max-content" }}>
@@ -83,6 +82,17 @@ function Parcelles() {
                                 >
                                   {/* {row},{col} */}
                                   {/* {pousse ? <div>{pousse.idPousse}</div> : null} */}
+                                  {pousse?.variete?.image && (
+                                    <a href='#'>
+                                    <div style={{ width: "55px", height: "55px", marginLeft: "auto", marginRight: "auto"}}>
+                                      <img
+                                        src={`${pousse.variete.image}`}
+                                        alt={pousse.variete.libelle || 'Plante'}
+                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                      />
+                                    </div>
+                                    </a>
+                                  )}
                                 </td>
                               );
                             })}
