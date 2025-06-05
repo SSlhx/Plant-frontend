@@ -5,7 +5,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Parcelles from './Parcelles';
 import Profile from './components/Profile';
-
+import ListePlante from './components/ListePlante'; 
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           {/* Route pour le formulaire d'inscription */}
           <Route path="/register" element={<RegisterForm />} />
-
+          <Route path="/listeplante" element={<ListePlante/>} />
           <Route path="/" element={<Home />} />
           <Route path="/parcelles" element={<Parcelles />} />
           {/* Route pour le Profile */}
