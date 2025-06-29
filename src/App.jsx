@@ -75,7 +75,6 @@ function MainLayout() {
   );
 }
 
-// Composant pour la page d'accueil
 function Home() {
   return (
     <div>
