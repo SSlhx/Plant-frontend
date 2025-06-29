@@ -1,0 +1,22 @@
+.sidebar {
+  width: 120px;
+  background-color: #198754;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.sidebar-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sidebar-item {
+  width: 60px;
+  height: 60px;
+  background-color: #543D35;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
