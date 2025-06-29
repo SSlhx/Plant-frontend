@@ -140,6 +140,14 @@ function Parcelles() {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
       <h2>Parcelles</h2>
+        <h3>Ajouter une parcelle</h3>
+        <form onSubmit={handleSubmit} style={{ marginBottom: "3rem"}}>
+          <input name="libelle" placeholder="Nom" onChange={handleChange} required />
+          <input name="longueur" type="number" placeholder="Longueur" onChange={handleChange} required />
+          <input name="largeur" type="number" placeholder="Largeur" onChange={handleChange} required />
+          <input name="taille_carres" type="number" step="0.1" placeholder="Taille des carrés" onChange={handleChange} required />
+          <button type="submit">Ajouter</button>
+        </form>
           {parcelles.map(p => {
             const zoom = zooms[p.idParcelle] || 0.6;
             return (
@@ -285,15 +293,6 @@ function Parcelles() {
               </div>
             )
           })}
-  
-      <h3>Ajouter une parcelle</h3>
-      <form onSubmit={handleSubmit}>
-        <input name="libelle" placeholder="Nom" onChange={handleChange} required />
-        <input name="longueur" type="number" placeholder="Longueur" onChange={handleChange} required />
-        <input name="largeur" type="number" placeholder="Largeur" onChange={handleChange} required />
-        <input name="taille_carres" type="number" step="0.1" placeholder="Taille des carrés" onChange={handleChange} required />
-        <button type="submit">Ajouter</button>
-      </form>
     </div>
   );
   

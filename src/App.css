@@ -1,5 +1,14 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  font-family: 'nunito';
+}
+
+h1, h2, h3, h4, h5, h6, button, input, textarea, select {
+  font-family: 'quicksand';
 }
 
 .app {
@@ -29,8 +38,9 @@ body {
   flex: 1;
   /* padding: 20px; */
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #c8e6c9;
-  
+  padding-left: 1rem;
 }
 
 .sidebar {
@@ -47,4 +57,14 @@ body {
 .bloc-text{
   font-family: "Nunito";
   
+}
+
+input[type=range] {
+  accent-color: #198754;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    margin-bottom: 80px;
   }
+}
