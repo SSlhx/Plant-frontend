@@ -130,6 +130,13 @@ function Parcelles() {
     });
   };
 
+  let dateRecolte = null;
+  if (pousseExistante?.datePlantation && pousseExistante.variete?.temps_avant_recolte != null) {
+    const d = new Date(pousseExistante.datePlantation);
+    d.setDate(d.getDate() + parseInt(pousseExistante.variete.temps_avant_recolte));
+    dateRecolte = d.toLocaleDateString();
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
       <h2>Parcelles</h2>
@@ -219,7 +226,17 @@ function Parcelles() {
                   }}>
                     {!showForm ? (
                       <>
-                        <h4>Actions pour la case ({selectedCell.x}, {selectedCell.y})</h4>
+                        {/* <h4>Actions pour la case ({selectedCell.x}, {selectedCell.y})</h4> */}
+
+                        {pousseExistante && (
+                          <div style={{ marginBottom: "1rem" }}>
+                            <p><strong>Nombre de plants :</strong> {pousseExistante.nbPlants}</p>
+                            <p><strong>Date de plantation :</strong> {new Date(pousseExistante.datePlantation).toLocaleDateString()}</p>
+                            <p><strong>Variété :</strong> {pousseExistante.variete?.libelle || "Non renseignée"}</p>
+                            <p><strong>Date de la future récolte :</strong>{dateRecolte || "Inconnue"}</p>
+                          </div>
+                        )}
+
                         <button onClick={() => setShowForm(true)} disabled={!!pousseExistante}>
                           Ajouter une pousse
                         </button>
