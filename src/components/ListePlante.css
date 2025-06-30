@@ -1,0 +1,33 @@
+
+.Liste{
+.card{
+    background-color: #fefee0;
+    border: 3px solid #543D35;
+}
+.bloc-image{
+    display: flex;
+    justify-content: center;
+}
+.bloc-image img{
+    width: 50%;
+}
+.bloc-titre{
+    text-align: center;
+    font-size: xx-large;
+}
+.btn{
+    background-color: #fefee0;
+    border: 2px solid #543D35;
+    transition: all ease .6s;
+}
+.btn:hover{
+    background-color: #543D35;
+    border: 2px solid #fefee0;
+    color: white;
+}
+.btn-active{
+    background-color: #543D35;
+    border: 2px solid #fefee0;
+    color: white;
+}
+}

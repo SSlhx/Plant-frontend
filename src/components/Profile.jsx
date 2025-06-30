@@ -36,7 +36,7 @@ function Profile() {
             <h1>Bienvenue, {user.nom}</h1>
             <p>Email : {user.email}</p>
             <p>Login : {user.login}</p>
-            <p>Nom : {user.nom}</p>
+            <p>id : {user.user_id}</p>
             <button onClick={handleLogout}>Se déconnecter</button>
         </div>
     );
