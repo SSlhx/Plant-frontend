@@ -194,7 +194,7 @@ function Parcelles() {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
       <h2>Parcelles</h2>
         <h3>Ajouter une parcelle</h3>
-        <form onSubmit={handleSubmit} style={{ marginBottom: "3rem"}}>
+        <form onSubmit={handleSubmit} style={{ marginBottom: "3rem", display: "flex", gap: "20px", flexWrap: "wrap", flexDirection: "column"}}>
           <input name="libelle" placeholder="Nom" onChange={handleChange} required />
           <input name="longueur" type="number" placeholder="Longueur" onChange={handleChange} required />
           <input name="largeur" type="number" placeholder="Largeur" onChange={handleChange} required />

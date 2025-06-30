@@ -97,9 +97,10 @@ function Plantes() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className='row' style={{ padding: "2rem" }}>
+      <div className='col-12 col-md-6 col-xl-4 offset-xl-2'>
       <h2>Ajouter une Catégorie</h2>
-      <form onSubmit={handleSubmitCategorie} style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+      <form onSubmit={handleSubmitCategorie} style={{ display: "flex", gap: "20px", flexWrap: "wrap", flexDirection: "column" }}>
         <input
           name="libelle"
           placeholder="Nom de la catégorie"
@@ -121,9 +122,11 @@ function Plantes() {
         </select>
         <button type="submit">Ajouter</button>
       </form>
+      </div>
 
+      <div className='col-12 col-md-6 col-xl-4'>
       <h2>Ajouter une Plante</h2>
-      <form onSubmit={handleSubmitPlante} style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+      <form onSubmit={handleSubmitPlante} style={{ display: "flex", gap: "20px", flexWrap: "wrap", flexDirection: "column" }}>
         <input
           name="nom"
           placeholder="Nom de la plante"
@@ -151,9 +154,11 @@ function Plantes() {
         </select>
         <button type="submit">Ajouter</button>
       </form>
+      </div>
 
+      <div className='col-12 col-md-6 col-xl-4 offset-md-3 offset-xl-4 mt-5'>
       <h2>Ajouter une Variété</h2>
-      <form onSubmit={handleSubmitVariete} style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+      <form onSubmit={handleSubmitVariete} style={{ display: "flex", gap: "20px", flexWrap: "wrap", flexDirection: "column" }}>
         <input
           name="libelle"
           placeholder="Nom de la variété"
@@ -239,6 +244,7 @@ function Plantes() {
         </select>
         <button type="submit">Ajouter</button>
       </form>
+      </div>
     </div>
   );
 }

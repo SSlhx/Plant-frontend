@@ -25,6 +25,13 @@ button:hover {
   /* box-shadow: 1px 1px 1px 1px #543d35; */
 }
 
+input, textarea, select {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: solid 3px #543D35;
+    box-shadow: none;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -54,7 +61,7 @@ button:hover {
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #c8e6c9;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
 }
 
 .sidebar {
@@ -77,8 +84,22 @@ input[type=range] {
   accent-color: #198754;
 }
 
+.form-plante {
+  width: 40%;
+}
+
+@media screen and (max-width: 991px) {
+  .form-plante {
+    width: 60%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .content {
     margin-bottom: 80px;
+  }
+
+  .form-plante {
+    width: 100%;
   }
 }
