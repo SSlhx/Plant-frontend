@@ -1,6 +1,6 @@
 export async function CheckUser() {
     try {
-        const response = await fetch('http://localhost:8000/api/profile', {
+        const response = await fetch('http://141.94.71.30:8080/api/profile', {
             method: 'GET',
             credentials: 'include',  
         });

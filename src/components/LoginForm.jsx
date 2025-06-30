@@ -12,7 +12,7 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:8000/login', {
+      const res = await fetch('http://141.94.71.30:8080/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

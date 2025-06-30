@@ -31,12 +31,12 @@ function Plantes() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/plantes')
+    fetch('http://141.94.71.30:8080/api/plantes')
       .then((res) => res.json())
       .then(setPlantes)
       .catch(console.error);
 
-    fetch('http://localhost:8000/api/categories')
+    fetch('http://141.94.71.30:8080/api/categories')
       .then((res) => res.json())
       .then(setCategories)
       .catch(console.error);
@@ -48,7 +48,7 @@ function Plantes() {
 
   const handleSubmitPlante = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/api/plantes', {
+    fetch('http://141.94.71.30:8080/api/plantes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formPlante)
@@ -56,7 +56,7 @@ function Plantes() {
       .then(res => res.json())
       .then(() => {
         setFormPlante({ nom: '', description: '', idCat: '' });
-        return fetch('http://localhost:8000/api/plantes').then(res => res.json());
+        return fetch('http://141.94.71.30:8080/api/plantes').then(res => res.json());
       })
       .then(setPlantes)
       .catch(console.error);
@@ -64,7 +64,7 @@ function Plantes() {
 
   const handleSubmitVariete = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/api/varietes', {
+    fetch('http://141.94.71.30:8080/api/varietes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formVariete)
@@ -82,7 +82,7 @@ function Plantes() {
 
   const handleSubmitCategorie = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/api/categories', {
+    fetch('http://141.94.71.30:8080/api/categories', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formCategorie)
@@ -90,7 +90,7 @@ function Plantes() {
       .then(res => res.json())
       .then(() => {
         setFormCategorie({ libelle: '', idCatParent: '' });
-        return fetch('http://localhost:8000/api/categories').then(res => res.json());
+        return fetch('http://141.94.71.30:8080/api/categories').then(res => res.json());
       })
       .then(setCategories)
       .catch(console.error);

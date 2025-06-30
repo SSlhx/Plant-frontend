@@ -12,7 +12,7 @@ const SinglePlante = () => {
   useEffect(() => {
     const fetchPlante = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/plantes/${id}`);
+        const res = await fetch(`http://141.94.71.30:8080/api/plantes/${id}`);
         if (!res.ok) throw new Error('Plante non trouvée');
         const data = await res.json();
         setPlante(data);

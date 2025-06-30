@@ -1,6 +1,6 @@
 export async function logoutUser() {
     try {
-        const response = await fetch('http://localhost:8000/logout', {
+        const response = await fetch('http://141.94.71.30:8080/logout', {
             method: 'GET',
             credentials: 'include', 
         });

@@ -10,7 +10,7 @@ const SingleVariete = () => {
   useEffect(() => {
     const fetchVariete = async () => {
       try {
-const res = await fetch(`http://localhost:8000/api/varietes/${id}`);
+const res = await fetch(`http://141.94.71.30:8080/api/varietes/${id}`);
         if (!res.ok) throw new Error('Variété non trouvée');
         const data = await res.json();
         setVariete(data);

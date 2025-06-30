@@ -16,7 +16,7 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:8000/register', {
+      const res = await fetch('http://141.94.71.30:8080/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -54,14 +54,14 @@ function Parcelles() {
     }, [navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/varietes")
+    fetch("http://141.94.71.30:8080/api/varietes")
       .then((res) => res.json())
       .then(setVarietes)
       .catch(console.error);
   }, []);
 
   useEffect(() => {
-  fetch('http://localhost:8000/api/parcelles', {
+  fetch('http://141.94.71.30:8080/api/parcelles', {
     credentials: 'include',  // <-- essentiel pour envoyer les cookies de session
   })
     .then(res => {
@@ -81,7 +81,7 @@ function Parcelles() {
 
   // const handleSubmit = e => {
   //   e.preventDefault();
-  //   fetch('http://localhost:8000/api/parcelles', {
+  //   fetch('http://141.94.71.30:8080/api/parcelles', {
   //     method: 'POST',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify(form)
@@ -96,7 +96,7 @@ function Parcelles() {
   // Crée les données à envoyer en ajoutant user.user_id
   const dataToSend = { ...form, idUser: user?.user_id };
 
-  fetch('http://localhost:8000/api/parcelles', {
+  fetch('http://141.94.71.30:8080/api/parcelles', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(dataToSend),
@@ -128,7 +128,7 @@ function Parcelles() {
       idVariete: formData.idVariete,
     };
 
-    fetch('http://localhost:8000/api/pousses', {
+    fetch('http://141.94.71.30:8080/api/pousses', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -147,7 +147,7 @@ function Parcelles() {
     if (!selectedCell) return;
 
     const { x, y, parcelleId } = selectedCell;
-    const url = `http://localhost:8000/api/pousses/${x}/${y}/${parcelleId}`;
+    const url = `http://141.94.71.30:8080/api/pousses/${x}/${y}/${parcelleId}`;
 
     fetch(url, {
       method: 'DELETE',
