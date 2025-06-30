@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { CheckUser } from './utils/session';
 function Parcelles() {
+  const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    
   const [parcelles, setParcelles] = useState([]);
   const [form, setForm] = useState({
     libelle: '',
     longueur: '',
     largeur: '',
     taille_carres: '',
-    idUser: 'U001' // À remplacer par le user connecté quand ça sera dev
+    idUser: '' // À remplacer par le user connecté quand ça sera dev
   });
   const [zooms, setZooms] = useState({});
   const [selectedCell, setSelectedCell] = useState(null);
@@ -29,6 +34,24 @@ function Parcelles() {
     idVariete: '',
     datePlantation: new Date().toISOString().split('T')[0],
   });
+  useEffect(() => {
+  if (user?.user_id) {
+    setForm(form => ({ ...form, idUser: user.user_id }));
+  }
+}, [user]);
+  useEffect(() => {
+        async function fetchSession() {
+            const sessionUser = await CheckUser();
+            if (!sessionUser) {
+                alert('Session invalide ou expirée');
+                navigate('/login');  
+            } else {
+                setUser(sessionUser);  
+            }
+        }
+    
+        fetchSession();
+    }, [navigate]);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/varietes")
@@ -38,27 +61,57 @@ function Parcelles() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/parcelles')
-      .then(res => res.json())
-      .then(setParcelles)
-      .catch(console.error);
-  }, []);
+  fetch('http://localhost:8000/api/parcelles', {
+    credentials: 'include',  // <-- essentiel pour envoyer les cookies de session
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Erreur HTTP ' + res.status);
+      }
+      return res.json();
+    })
+    .then(setParcelles)
+    .catch(console.error);
+}, []);
+
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   fetch('http://localhost:8000/api/parcelles', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(form)
+  //   })
+  //     .then(res => res.json())
+  //     .then(() => window.location.reload())
+  //     .catch(console.error);
+  // };
   const handleSubmit = e => {
-    e.preventDefault();
-    fetch('http://localhost:8000/api/parcelles', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    })
-      .then(res => res.json())
-      .then(() => window.location.reload())
-      .catch(console.error);
-  };
+  e.preventDefault();
+
+  // Crée les données à envoyer en ajoutant user.user_id
+  const dataToSend = { ...form, idUser: user?.user_id };
+
+  fetch('http://localhost:8000/api/parcelles', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(dataToSend),
+  credentials: 'include'  // <-- ajoute cette ligne pour envoyer les cookies de session
+})
+.then(res => {
+  if (!res.ok) {
+    throw new Error('Erreur HTTP ' + res.status);
+  }
+  return res.json();
+})
+.then(() => window.location.reload())
+.catch(console.error);
+
+};
 
   const handleZoomChange = (idParcelle, value) => {
     setZooms(prev => ({ ...prev, [idParcelle]: parseFloat(value) }));
