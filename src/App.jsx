@@ -8,7 +8,10 @@ import Profile from './components/Profile';
 import Plantes from './Plantes';
 import Header from './components/header';
 import Sidebar from './components/sidebar';
-import ProtectedRoute from './components/ProtectedRoute';  // ✅ Ajouté
+import ProtectedRoute from './components/ProtectedRoute';  
+import ListePlante from './components/ListePlante';  
+import SinglePlante from "./components/SinglePlante";
+import SingleVariete from "./components/SingleVariete";
 
 function App() {
   return (
@@ -50,6 +53,16 @@ function MainLayout() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/ListePlante"
+              element={
+                <ProtectedRoute>
+                  <ListePlante />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/plante/:id" element={<SinglePlante />} />
+            <Route path="/variete/:id" element={<SingleVariete />} />
             <Route
               path="/profile"
               element={
