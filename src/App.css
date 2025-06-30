@@ -11,6 +11,20 @@ h1, h2, h3, h4, h5, h6, button, input, textarea, select {
   font-family: 'quicksand';
 }
 
+button {
+    padding: 10px 20px;
+    background-color: #198754;
+    border: solid 3px #198754;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button:hover {
+  border: solid 3px #543d35;
+  /* box-shadow: 1px 1px 1px 1px #543d35; */
+}
+
 .app {
   display: flex;
   flex-direction: column;
