@@ -103,3 +103,30 @@ input[type=range] {
     width: 100%;
   }
 }
+
+/* SCROLLBAR CUSTOM - Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d9e8d7; /* Vert très clair */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #317b51; /* Vert principal */
+  border-radius: 8px;
+  border: 2px solid #d9e8d7; /* Donne un petit effet de relief */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #245a3a; /* Vert plus foncé au survol */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #317b51 #d9e8d7;
+}

@@ -40,7 +40,7 @@ const SinglePlante = () => {
             alt={plante.nom}
             className="img-fluid rounded mb-3 img-principal"
           />
-          <div className="d-flex justify-content-between">
+          {/* <div className="d-flex justify-content-between">
             {[1, 2, 3].map((_, idx) => (
               <img
                 key={idx}
@@ -49,14 +49,14 @@ const SinglePlante = () => {
                 className="img-thumbnail"
               />
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Titre + description */}
         <div className="col-md-6 text-desc">
           <h2 className='bloc-titre'>{plante.nom}</h2>
-          <h3 className='bloc-titre'>{plante.categorie?.libelleCat}</h3>
-          <p>{plante.description}</p>
+          <h3 className='bloc-titre'><span >Famille : </span>{plante.categorie?.libelleCat}</h3>
+          <p className='bloc-text'>{plante.description}</p>
         </div>
       </div>
 
