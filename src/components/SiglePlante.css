@@ -1,0 +1,27 @@
+.siglePlante{
+     .bloc-image{
+        display: grid;
+        justify-content: center;
+        .img-principal{
+            width: 356px;
+        }
+     }
+     .var-titre{
+        text-align: center;
+     }
+     .card{
+    background-color: #fefee0;
+    border: 3px solid #543D35;
+    .bloc-image img{
+    /* width: 50%; */
+    }
+    .bloc-titre{
+        font-size: x-large;
+    }
+    }
+    .text-desc{
+        h3{
+            font-size: medium;
+        }
+    }
+}
