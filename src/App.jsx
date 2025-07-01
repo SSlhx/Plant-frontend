@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ListePlante from './components/ListePlante';  
 import SinglePlante from "./components/SinglePlante";
 import SingleVariete from "./components/SingleVariete";
+import ParcellesList from "./components/ParcellesList";
 
 function App() {
   return (
@@ -45,14 +46,22 @@ function MainLayout() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/parcelles"
+           <Route
+              path="/parcelle"
               element={
                 <ProtectedRoute>
                   <Parcelles />
                 </ProtectedRoute>
               }
             />
+            <Route
+            path="/parcelles-list"
+            element={
+              <ProtectedRoute>
+                <ParcellesList />
+              </ProtectedRoute>
+            }
+          />
             <Route
               path="/ListePlante"
               element={

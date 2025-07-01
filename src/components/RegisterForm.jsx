@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './RegisterForm.css';  // ajoute ce CSS
+import './RegisterForm.css';  
 import { Link } from 'react-router-dom';
 
 function RegisterForm() {
