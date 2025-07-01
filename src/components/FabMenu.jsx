@@ -21,12 +21,13 @@ export default function FabMenu() {
 
   return (
     <>
+      {open && <div className="fab-overlay" onClick={toggleMenu}></div>}
       <div className="fab-container">
         <div className={`fab-actions ${open ? 'open' : 'closed'}`}>
           <button className="fab-action" onClick={() => openForm('categorie')}>Ajouter une catégorie</button>
           <button className="fab-action" onClick={() => openForm('plante')}>Ajouter une plante</button>
           <button className="fab-action" onClick={() => openForm('variete')}>Ajouter une variété</button>
-          <button className="fab-action" onClick={() => openForm('parcelles')}>Ajouter une parcelles</button>          
+          <button className="fab-action" onClick={() => openForm('parcelles')}>Ajouter une parcelle</button>          
         </div>
 
         <button
