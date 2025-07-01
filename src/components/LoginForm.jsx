@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';  // ajoute ceci
 
 function LoginForm() {
+  const Base_URL = import.meta.env.VITE_URL_API;
+
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -12,7 +14,7 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://141.94.71.30:8080/login', {
+      const res = await fetch(`${Base_URL}/connexion`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

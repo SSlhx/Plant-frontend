@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Plantes() {
+  const Base_URL = import.meta.env.VITE_URL_API;
+
   const [plantes, setPlantes] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -31,16 +33,16 @@ function Plantes() {
   });
 
   useEffect(() => {
-    fetch('http://141.94.71.30:8080/api/plantes')
+    fetch(`${Base_URL}/api/plantes`)
       .then((res) => res.json())
       .then(setPlantes)
       .catch(console.error);
 
-    fetch('http://141.94.71.30:8080/api/categories')
+    fetch(`${Base_URL}/api/categories`)
       .then((res) => res.json())
       .then(setCategories)
       .catch(console.error);
-  }, []);
+  }, [Base_URL]);
 
   const handleChange = (setter) => (e) => {
     setter(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -48,7 +50,7 @@ function Plantes() {
 
   const handleSubmitPlante = (e) => {
     e.preventDefault();
-    fetch('http://141.94.71.30:8080/api/plantes', {
+    fetch(`${Base_URL}/api/plantes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formPlante)
@@ -56,7 +58,7 @@ function Plantes() {
       .then(res => res.json())
       .then(() => {
         setFormPlante({ nom: '', description: '', idCat: '' });
-        return fetch('http://141.94.71.30:8080/api/plantes').then(res => res.json());
+        return fetch(`${Base_URL}/api/plantes`).then(res => res.json());
       })
       .then(setPlantes)
       .catch(console.error);
@@ -64,7 +66,7 @@ function Plantes() {
 
   const handleSubmitVariete = (e) => {
     e.preventDefault();
-    fetch('http://141.94.71.30:8080/api/varietes', {
+    fetch(`${Base_URL}/api/varietes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formVariete)
@@ -82,7 +84,7 @@ function Plantes() {
 
   const handleSubmitCategorie = (e) => {
     e.preventDefault();
-    fetch('http://141.94.71.30:8080/api/categories', {
+    fetch(`${Base_URL}/api/categories`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formCategorie)
@@ -90,7 +92,7 @@ function Plantes() {
       .then(res => res.json())
       .then(() => {
         setFormCategorie({ libelle: '', idCatParent: '' });
-        return fetch('http://141.94.71.30:8080/api/categories').then(res => res.json());
+        return fetch(`${Base_URL}/api/categories`).then(res => res.json());
       })
       .then(setCategories)
       .catch(console.error);

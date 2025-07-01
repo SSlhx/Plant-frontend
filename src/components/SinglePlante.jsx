@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 
 const SinglePlante = () => {
+  const Base_URL = import.meta.env.VITE_URL_API;
+  
   const { id } = useParams();
   const [plante, setPlante] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const SinglePlante = () => {
   useEffect(() => {
     const fetchPlante = async () => {
       try {
-        const res = await fetch(`http://141.94.71.30:8080/api/plantes/${id}`);
+        const res = await fetch(`${Base_URL}/api/plantes/${id}`);
         if (!res.ok) throw new Error('Plante non trouvée');
         const data = await res.json();
         setPlante(data);
@@ -25,7 +27,7 @@ const SinglePlante = () => {
     };
 
     fetchPlante();
-  }, [id]);
+  }, [id, Base_URL]);
 
   if (loading) return <p className="text-center mt-5">Chargement...</p>;
   if (!plante) return <p className="text-center mt-5">Plante non trouvée</p>;

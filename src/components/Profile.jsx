@@ -12,7 +12,7 @@ function Profile() {
             const sessionUser = await CheckUser();
             if (!sessionUser) {
                 alert('Session invalide ou expirée');
-                navigate('/login');  
+                navigate('/connexion');  
             } else {
                 setUser(sessionUser);  
             }
@@ -23,7 +23,7 @@ function Profile() {
 
     const handleLogout = async () => {
         await logoutUser();  
-        navigate('/login');  
+        navigate('/connexion');  
     };
 
     if (!user) {

@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import './SingleVariete.css';
 
 const SingleVariete = () => {
+  const Base_URL = import.meta.env.VITE_URL_API;
+
   const { id } = useParams();
   const [variete, setVariete] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const SingleVariete = () => {
   useEffect(() => {
     const fetchVariete = async () => {
       try {
-const res = await fetch(`http://141.94.71.30:8080/api/varietes/${id}`);
+const res = await fetch(`${Base_URL}/api/varietes/${id}`);
         if (!res.ok) throw new Error('Variété non trouvée');
         const data = await res.json();
         setVariete(data);
@@ -23,7 +25,7 @@ const res = await fetch(`http://141.94.71.30:8080/api/varietes/${id}`);
     };
 
     fetchVariete();
-  }, [id]);
+  }, [id, Base_URL]);
 
   if (loading) return <p className="center-text">Chargement...</p>;
   if (!variete) return <p className="center-text">Variété non trouvée</p>;

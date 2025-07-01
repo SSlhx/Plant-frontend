@@ -24,8 +24,8 @@ function App() {
 function MainLayout() {
   const location = useLocation();
   
-  const hideSidebar = location.pathname === '/login' || location.pathname === '/register';
-  const hideHeader = location.pathname === '/login' || location.pathname === '/register';
+  const hideSidebar = location.pathname === '/connexion' || location.pathname === '/register';
+  const hideHeader = location.pathname === '/connexion' || location.pathname === '/register';
 
   return (
     <div className="app">
@@ -34,7 +34,7 @@ function MainLayout() {
       <div className="main">
         <div className="content">
           <Routes>
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/connexion" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
 
             <Route

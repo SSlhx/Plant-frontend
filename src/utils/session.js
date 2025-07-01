@@ -1,6 +1,7 @@
 export async function CheckUser() {
+    const Base_URL = import.meta.env.VITE_URL_API;
     try {
-        const response = await fetch('http://141.94.71.30:8080/api/profile', {
+        const response = await fetch(`${Base_URL}/api/profile`, {
             method: 'GET',
             credentials: 'include',  
         });

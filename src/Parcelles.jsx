@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckUser } from './utils/session';
 function Parcelles() {
+  const Base_URL = import.meta.env.VITE_URL_API;
+
   const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ function Parcelles() {
             const sessionUser = await CheckUser();
             if (!sessionUser) {
                 alert('Session invalide ou expirée');
-                navigate('/login');  
+                navigate('/connexion');  
             } else {
                 setUser(sessionUser);  
             }
@@ -54,14 +56,14 @@ function Parcelles() {
     }, [navigate]);
 
   useEffect(() => {
-    fetch("http://141.94.71.30:8080/api/varietes")
+    fetch(`${Base_URL}/api/varietes`)
       .then((res) => res.json())
       .then(setVarietes)
       .catch(console.error);
-  }, []);
+  }, [Base_URL]);
 
   useEffect(() => {
-  fetch('http://141.94.71.30:8080/api/parcelles', {
+  fetch(`${Base_URL}/api/parcelles`, {
     credentials: 'include',  // <-- essentiel pour envoyer les cookies de session
   })
     .then(res => {
@@ -72,7 +74,7 @@ function Parcelles() {
     })
     .then(setParcelles)
     .catch(console.error);
-}, []);
+}, [Base_URL]);
 
 
   const handleChange = e => {
@@ -96,7 +98,7 @@ function Parcelles() {
   // Crée les données à envoyer en ajoutant user.user_id
   const dataToSend = { ...form, idUser: user?.user_id };
 
-  fetch('http://141.94.71.30:8080/api/parcelles', {
+  fetch(`${Base_URL}/api/parcelles`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(dataToSend),
@@ -128,7 +130,7 @@ function Parcelles() {
       idVariete: formData.idVariete,
     };
 
-    fetch('http://141.94.71.30:8080/api/pousses', {
+    fetch(`${Base_URL}/api/pousses`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -147,7 +149,7 @@ function Parcelles() {
     if (!selectedCell) return;
 
     const { x, y, parcelleId } = selectedCell;
-    const url = `http://141.94.71.30:8080/api/pousses/${x}/${y}/${parcelleId}`;
+    const url = `${Base_URL}/api/pousses/${x}/${y}/${parcelleId}`;
 
     fetch(url, {
       method: 'DELETE',

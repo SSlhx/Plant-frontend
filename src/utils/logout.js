@@ -1,6 +1,7 @@
 export async function logoutUser() {
+    const Base_URL = import.meta.env.VITE_URL_SITE;
     try {
-        const response = await fetch('http://141.94.71.30:8080/logout', {
+        const response = await fetch(`${Base_URL}/logout`, {
             method: 'GET',
             credentials: 'include', 
         });

@@ -11,8 +11,8 @@ function ProtectedRoute({ children }) {
   }
 
   if (!user) {
-    // Redirige vers /login, mais garde la page d'origine en state
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Redirige vers /connexion, mais garde la page d'origine en state
+    return <Navigate to="/connexion" state={{ from: location }} replace />;
   }
 
   // L'utilisateur est connecté

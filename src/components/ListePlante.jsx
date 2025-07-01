@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ListePlante.css";
 import { Link } from "react-router-dom";
 
-const Base_URL = "http://localhost:8000";
+const Base_URL = import.meta.env.VITE_URL_API;
 
 
 const PlantesList = () => {

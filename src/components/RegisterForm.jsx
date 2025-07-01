@@ -4,6 +4,8 @@ import './RegisterForm.css';  // ajoute ce CSS
 import { Link } from 'react-router-dom';
 
 function RegisterForm() {
+  const Base_URL = import.meta.env.VITE_URL_SITE;
+
   const [nom, setNom] = useState('');
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
@@ -16,7 +18,7 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://141.94.71.30:8080/register', {
+      const res = await fetch(`${Base_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -30,7 +32,7 @@ function RegisterForm() {
 
       const data = await res.json();
       alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
-      navigate('/login');      
+      navigate('/connexion');      
     } catch (err) {
       setError(err.message);
     }
@@ -73,7 +75,7 @@ function RegisterForm() {
           />
           <button type="submit">S'inscrire</button>
         </form>
-        <p className='bloc-text'>Déjà inscrit ? <Link className="link" to="/login">Connectez-vous</Link> </p>
+        <p className='bloc-text'>Déjà inscrit ? <Link className="link" to="/connexion">Connectez-vous</Link> </p>
       </div>
     </div>
   );
