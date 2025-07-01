@@ -174,6 +174,7 @@ function Parcelles() {
         setSelectedCell(null);
         setFormPousse({ nbPlants: '', idVariete: '', datePlantation: '' });
       })
+      .then(() => window.location.reload())
       .catch(console.error);
   };
 
