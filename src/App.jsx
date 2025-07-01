@@ -42,7 +42,7 @@ function MainLayout() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <ParcellesList />
                 </ProtectedRoute>
               }
             />
@@ -54,14 +54,6 @@ function MainLayout() {
                 </ProtectedRoute>
               }
             />
-            <Route
-            path="/parcelles-list"
-            element={
-              <ProtectedRoute>
-                <ParcellesList />
-              </ProtectedRoute>
-            }
-          />
             <Route
               path="/ListePlante"
               element={

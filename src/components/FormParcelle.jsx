@@ -54,6 +54,7 @@ function FormParcelle() {
         // Tu peux faire une redirection ou reset du formulaire ici
         setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
       })
+      .then(() => window.location.reload())
       .catch(err => {
         alert('Erreur lors de l\'ajout : ' + err.message);
       });
