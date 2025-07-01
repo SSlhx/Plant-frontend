@@ -1,0 +1,23 @@
+.parcelles-list{
+    .item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn{
+                padding: 5px 16px;
+                color: #ffffff;
+                background-color: #198754;
+                border: solid 3px #198754;
+                border-radius: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                margin-right: 1rem;
+        }.mod:hover{
+            background-color: #543D35;
+            border:solid 3px #543D35;
+        }.supp:hover{
+            background-color: #9C2828;
+            border:solid 3px #9C2828;
+        }
+    }
+}

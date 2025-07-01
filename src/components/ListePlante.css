@@ -9,11 +9,11 @@
     justify-content: center;
 }
 .bloc-image img{
-    width: 50%;
+    object-fit: contain;
 }
-.bloc-titre{
+.card-body .bloc-titre{
     text-align: center;
-    font-size: xx-large;
+    color: #543D35;
 }
 .btn{
     background-color: #fefee0;

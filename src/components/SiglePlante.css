@@ -1,27 +1,101 @@
-.siglePlante{
-     .bloc-image{
-        display: grid;
-        justify-content: center;
-        .img-principal{
-            width: 356px;
-        }
-     }
-     .var-titre{
-        text-align: center;
-     }
-     .card{
-    background-color: #fefee0;
-    border: 3px solid #543D35;
-    .bloc-image img{
-    /* width: 50%; */
-    }
-    .bloc-titre{
-        font-size: x-large;
-    }
-    }
-    .text-desc{
-        h3{
-            font-size: medium;
-        }
-    }
+.container.siglePlante {
+  background-color: #e0f0df;  /* vert pâle doux */
+  border-radius: 12px;
+  padding: 2rem 2rem;
+}
+
+.bloc-image img.img-principal {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.bloc-image img.img-principal:hover {
+  transform: scale(1.02);
+}
+
+.text-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-desc .bloc-titre {
+  color: #317b51;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.text-desc .bloc-titre span{
+    color: #000000;
+}
+.text-desc  h3{
+    font-size: larger;
+}
+.text-desc p {
+  color: #333;
+  line-height: 1.5;
+}
+
+.var-titre {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background-color: #317b51;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+hr {
+  height: 3px;
+  width: 35%;
+  background-color: #317b51;
+  border: none;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.row {
+  /* gap: 1rem; */
+}
+
+/* Carte variété */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Titre et texte des cartes */
+.card-title.bloc-titre {
+  color: #317b51;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.card-text.bloc-text {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
