@@ -80,7 +80,7 @@ useEffect(() => {
 
   return (
     <div className="container my-4 parcelles-list">
-      <h2 className="mb-3 bloc-titre">Mes Parcelles</h2>
+      <h1 className="mb-3 bloc-titre">Mes Parcelles</h1>
       <div className='item-liste'>
         {parcelles.length === 0 ? (
           <p>Aucune parcelle trouvée.</p>

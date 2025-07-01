@@ -101,7 +101,7 @@ export default function Calendar() {
 
     return (
         <div className="container my-4">
-            <h2 className="mb-3">Calendrier d'Entretien</h2>
+            <h1 className="mb-3">Calendrier d'Entretien</h1>
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
