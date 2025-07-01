@@ -81,23 +81,25 @@ useEffect(() => {
   return (
     <div className="container my-4 parcelles-list">
       <h2 className="mb-3 bloc-titre">Mes Parcelles</h2>
-      {parcelles.length === 0 ? (
-        <p>Aucune parcelle trouvée.</p>
-      ) : (
-        <ul className="list-group">
-          {parcelles.map((p) => (
-            <li key={p.idParcelle} className="list-group-item item">
-              <div className='content-text'>
-                <h2 className='bloc-titre'>{p.libelle}</h2>
-              </div>
-              <div className='lien'>
-                <button onClick={() => handleClick(p.idParcelle)} className='btn mod'>Modifier</button>
-                <button onClick={() => confirmDelete(p.idParcelle)} className='btn supp'>Supprimer</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className='item-liste'>
+        {parcelles.length === 0 ? (
+          <p>Aucune parcelle trouvée.</p>
+        ) : (
+          <ul className="list-group">
+            {parcelles.map((p) => (
+              <li key={p.idParcelle} className="list-group-item item">
+                <div className='content-text'>
+                  <h2 className='bloc-titre'>{p.libelle}</h2>
+                </div>
+                <div className='lien'>
+                  <button onClick={() => handleClick(p.idParcelle)} className='btn mod'>Modifier</button>
+                  <button onClick={() => confirmDelete(p.idParcelle)} className='btn supp'>Supprimer</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       {parcelleToDelete && (
         <div className="popup-confirmation">
