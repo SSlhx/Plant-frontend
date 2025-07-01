@@ -4,7 +4,7 @@ import './RegisterForm.css';  // ajoute ce CSS
 import { Link } from 'react-router-dom';
 
 function RegisterForm() {
-  const Base_URL = import.meta.env.VITE_URL_SITE;
+  const Base_URL = import.meta.env.VITE_URL_API;
 
   const [nom, setNom] = useState('');
   const [login, setLogin] = useState('');

@@ -1,5 +1,5 @@
 export async function logoutUser() {
-    const Base_URL = import.meta.env.VITE_URL_SITE;
+    const Base_URL = import.meta.env.VITE_URL_API;
     try {
         const response = await fetch(`${Base_URL}/logout`, {
             method: 'GET',
