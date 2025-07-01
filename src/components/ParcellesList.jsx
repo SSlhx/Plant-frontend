@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import "./parcelles-list.css"
+import { Link, useNavigate } from "react-router-dom";
+import "./parcelles-list.css";
 import FabMenu from './FabMenu';
-import { useNavigate } from 'react-router-dom';
-
 
 export default function ParcellesList() {
   const Base_URL = import.meta.env.VITE_URL_API;
@@ -11,19 +9,18 @@ export default function ParcellesList() {
   const [parcelles, setParcelles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [parcelleToDelete, setParcelleToDelete] = useState(null); 
   const navigate = useNavigate();
+
   const handleClick = (idParcelle) => {
-  // On navigue en passant l'id dans state
-  navigate('/parcelle', { state: { idParcelle } });
-  // ET on stocke dans localStorage
-  localStorage.setItem('idParcelle', idParcelle);
-};
+    navigate('/parcelle', { state: { idParcelle } });
+    localStorage.setItem('idParcelle', idParcelle);
+  };
 
-
-  useEffect(() => {
-    fetch(`${Base_URL}/api/parcelles/simple`, {
-      credentials: 'include', // important pour les cookies de session
-    })
+  const fetchParcelles = () => {
+    setLoading(true);
+    setError('');
+    fetch(`${Base_URL}/api/parcelles/simple`, { credentials: 'include' })
       .then((res) => {
         if (!res.ok) throw new Error('Erreur réseau');
         return res.json();
@@ -34,7 +31,49 @@ export default function ParcellesList() {
         setError('Erreur lors du chargement des parcelles');
       })
       .finally(() => setLoading(false));
-  }, [Base_URL]);
+  };
+
+useEffect(() => {
+  fetchParcelles();
+
+  const handleParcelleAjoutee = () => {
+    fetchParcelles();
+  };
+
+  window.addEventListener('parcelleAjoutee', handleParcelleAjoutee);
+
+  return () => {
+    window.removeEventListener('parcelleAjoutee', handleParcelleAjoutee);
+  };
+}, [Base_URL]);
+
+
+  const confirmDelete = (idParcelle) => {
+    setParcelleToDelete(idParcelle);
+  };
+
+  const deleteParcelle = () => {
+    fetch(`${Base_URL}/api/parcelles/${parcelleToDelete}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Erreur suppression');
+        return res.json();
+      })
+      .then(() => {
+        setParcelleToDelete(null);
+        fetchParcelles();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Erreur lors de la suppression.");
+      });
+  };
+
+  const cancelDelete = () => {
+    setParcelleToDelete(null);
+  };
 
   if (loading) return <div>Chargement...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
@@ -48,19 +87,29 @@ export default function ParcellesList() {
         <ul className="list-group">
           {parcelles.map((p) => (
             <li key={p.idParcelle} className="list-group-item item">
-                <div className='content-text'>
-                    <h2 className='bloc-titre' >{p.libelle}</h2>
-                </div>
-                <div className='lien'>
-                  <button onClick={() => handleClick(p.idParcelle)} className='btn mod'>Modifier</button>
-                  <button className='btn supp'>Supprimer</button>
-                </div>
+              <div className='content-text'>
+                <h2 className='bloc-titre'>{p.libelle}</h2>
+              </div>
+              <div className='lien'>
+                <button onClick={() => handleClick(p.idParcelle)} className='btn mod'>Modifier</button>
+                <button onClick={() => confirmDelete(p.idParcelle)} className='btn supp'>Supprimer</button>
+              </div>
             </li>
           ))}
         </ul>
       )}
+
+      {parcelleToDelete && (
+        <div className="popup-confirmation">
+          <div className="popup-content">
+            <p>Confirmez-vous la suppression de cette parcelle ?</p>
+            <button onClick={deleteParcelle} className="btn btn-danger me-2">Oui, supprimer</button>
+            <button onClick={cancelDelete} className="btn btn-secondary">Annuler</button>
+          </div>
+        </div>
+      )}
+
       <FabMenu />
     </div>
-    
   );
 }
