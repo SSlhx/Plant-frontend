@@ -1,3 +1,15 @@
+.fab-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* faible opacité */
+  z-index: 998; /* juste en dessous du .fab-container (z-index: 999) */
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
 .fab-container {
   position: fixed;
   bottom: 30px;
@@ -6,6 +18,7 @@
   flex-direction: column;
   align-items: flex-end;
   z-index: 999;
+  pointer-events: none;
 }
 
 .fab-actions {
@@ -13,23 +26,23 @@
   flex-direction: column;
   gap: 12px;
   margin-bottom: 10px;
-
-  /* Transition sur opacité et scale */
   opacity: 0;
   transform: scale(0.3);
-  pointer-events: none; /* désactive clic quand fermé */
+  pointer-events: none; 
   transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+
 }
 
 .fab-actions.open {
   opacity: 1;
   transform: scale(1);
-  pointer-events: auto; /* active clic quand ouvert */
+  pointer-events: auto; 
 }
 
 .fab-actions.closed {
   opacity: 0;
-  transform: scale(0.3);
+  transform: scale(0.1);
   pointer-events: none;
 }
 
@@ -64,8 +77,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
+    pointer-events: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
+}
+.fab-main:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  border: none;
+}
 .fab-main.open {
   transform: rotate(90deg);
   background-color: #1c5c3f;
@@ -78,7 +99,7 @@
 .popup-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -32,33 +32,32 @@ function FormParcelle() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!user) {
-      alert("Utilisateur non connecté");
-      return;
-    }
-    const dataToSend = { ...form, idUser: user.user_id };
-    fetch(`${Base_URL}/api/parcelles`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dataToSend),
-      credentials: 'include'
+ const handleSubmit = e => {
+  e.preventDefault();
+  if (!user) {
+    alert("Utilisateur non connecté");
+    return;
+  }
+  const dataToSend = { ...form, idUser: user.user_id };
+  fetch(`${Base_URL}/api/parcelles`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dataToSend),
+    credentials: 'include'
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
+      return res.json();
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
-        return res.json();
-      })
-      .then(newParcelle => {
-        alert('Parcelle ajoutée avec succès !');
-        // Tu peux faire une redirection ou reset du formulaire ici
-        setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
-      })
-      .then(() => window.location.reload())
-      .catch(err => {
-        alert('Erreur lors de l\'ajout : ' + err.message);
-      });
-  };
+    .then(newParcelle => {
+      alert('Parcelle ajoutée avec succès !');
+      setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
+      window.dispatchEvent(new Event('parcelleAjoutee'));  // <-- ajouté ici
+    })
+    .catch(err => {
+      alert('Erreur lors de l\'ajout : ' + err.message);
+    });
+};
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "400px" }}>
