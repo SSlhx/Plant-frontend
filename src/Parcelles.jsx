@@ -11,13 +11,13 @@ function Parcelles() {
   const idParcelle = location.state?.idParcelle || localStorage.getItem('idParcelle');
 
   const [parcelles, setParcelles] = useState([]);
-  const [form, setForm] = useState({
-    libelle: '',
-    longueur: '',
-    largeur: '',
-    taille_carres: '',
-    idUser: ''
-  });
+  // const [form, setForm] = useState({
+  //   libelle: '',
+  //   longueur: '',
+  //   largeur: '',
+  //   taille_carres: '',
+  //   idUser: ''
+  // });
   const [zooms, setZooms] = useState({});
   const [selectedCell, setSelectedCell] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -46,7 +46,7 @@ function Parcelles() {
   // Mets à jour idUser dans form quand user chargé
   useEffect(() => {
     if (user?.user_id) {
-      setForm(form => ({ ...form, idUser: user.user_id }));
+      // setForm(form => ({ ...form, idUser: user.user_id }));
     }
   }, [user]);
 
@@ -165,28 +165,28 @@ function Parcelles() {
   };
 
   // Formulaire ajout parcelle
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = e => {
-    e.preventDefault();
-    const dataToSend = { ...form, idUser: user?.user_id };
-    fetch('http://localhost:8000/api/parcelles', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dataToSend),
-      credentials: 'include'
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
-        return res.json();
-      })
-      .then(newParcelle => {
-        // Ajoute la nouvelle parcelle localement
-        setParcelles(prev => [...prev, newParcelle]);
-      })
-      .catch(console.error);
-  };
+  // const handleChange = e => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   const dataToSend = { ...form, idUser: user?.user_id };
+  //   fetch('http://localhost:8000/api/parcelles', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(dataToSend),
+  //     credentials: 'include'
+  //   })
+  //     .then(res => {
+  //       if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
+  //       return res.json();
+  //     })
+  //     .then(newParcelle => {
+  //       // Ajoute la nouvelle parcelle localement
+  //       setParcelles(prev => [...prev, newParcelle]);
+  //     })
+  //     .catch(console.error);
+  // };
 
   const handleZoomChange = (idParcelle, value) => {
     setZooms(prev => ({ ...prev, [idParcelle]: parseFloat(value) }));
