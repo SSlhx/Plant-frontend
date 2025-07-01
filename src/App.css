@@ -9,18 +9,22 @@ body {
 
 h1, h2, h3, h4, h5, h6, button, input, textarea, select {
   font-family: 'quicksand';
+  font-weight: bold;
+  color: #543D35;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 5px 16px;
     background-color: #198754;
     border: solid 3px #198754;
     border-radius: 5px;
     text-transform: uppercase;
     font-weight: bold;
+    color: #fff;
 }
 
 button:hover {
+  background-color: #543d35;
   border: solid 3px #543d35;
   /* box-shadow: 1px 1px 1px 1px #543d35; */
 }
@@ -70,7 +74,7 @@ input, textarea, select {
   flex-shrink: 0;
   padding: 20px;
 }
-.bloc-titre{
+/* .bloc-titre{
   font-family: "Quicksand";
   font-size: xx-large;
   font-weight: bold;
@@ -78,7 +82,7 @@ input, textarea, select {
 .bloc-text{
   font-family: "Nunito";
   
-}
+} */
 
 input[type=range] {
   accent-color: #198754;

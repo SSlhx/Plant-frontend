@@ -13,6 +13,7 @@ import ListePlante from './components/ListePlante';
 import SinglePlante from "./components/SinglePlante";
 import SingleVariete from "./components/SingleVariete";
 import ParcellesList from "./components/ParcellesList";
+import Calendrier from './components/Calendrier';
 
 function App() {
   return (
@@ -77,6 +78,14 @@ function MainLayout() {
               element={
                 <ProtectedRoute>
                   <Plantes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/calendrier"
+              element={
+                <ProtectedRoute>
+                  <Calendrier />
                 </ProtectedRoute>
               }
             />

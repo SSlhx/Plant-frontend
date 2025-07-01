@@ -49,6 +49,7 @@ const PlantesList = () => {
 
   return (
     <div className="container Liste py-4">
+      <h1 className="mb-3">Bibliothèque de plantes</h1>
       {/* Boutons Catégories */}
       <div className="mb-4 d-flex flex-wrap gap-2">
         {categories.map((cat) => (

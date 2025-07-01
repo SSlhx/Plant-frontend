@@ -1,0 +1,53 @@
+.fc {
+    background-color: #fff;
+    border-radius: 8px;
+    border: solid 20px #fff;
+}
+
+.fc-button {
+    background-color: #543d35 !important;   
+    box-shadow: none !important;
+}
+
+.fc-col-header-cell-cushion, .fc-daygrid-day-number {
+    color: #543d35;
+}
+
+.fc-view-harness {
+    border-radius: 8px !important;
+}
+
+.fc-daygrid th, .fc-daygrid td {
+    border: 1px solid #543d35 !important;
+    box-shadow: none !important;
+}
+
+.fc-day-today {
+    background-color: #e0f0df !important;
+}
+
+.fc-event {
+    cursor: pointer;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-header  {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modal-content {
+    border: solid 3px #543d35;
+}
+
+.modal-close {
+    background-color: #9C2828;
+    border: solid 3px #9C2828;
+}
+
+.modal-close:hover {
+  border: solid 3px #543d35;
+}
