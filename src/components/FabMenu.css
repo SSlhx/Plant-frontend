@@ -19,6 +19,12 @@
   align-items: flex-end;
   z-index: 999;
   pointer-events: none;
+  
+}@media screen and (max-width:768px){
+  .fab-container {
+    bottom: 96px;
+    right: 15px;
+  }
 }
 
 .fab-actions {
@@ -132,3 +138,5 @@
   background-color: #543d35;
   border: none;
 }
+
+

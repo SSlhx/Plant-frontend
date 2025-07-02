@@ -126,6 +126,11 @@ const handleSubmit = (e) => {
                 placeholder="Ex: 20"
                 value={formVariete.nbGraines}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
                 min="0"
               />
             </label>
@@ -136,6 +141,11 @@ const handleSubmit = (e) => {
                 placeholder="Ex: plein soleil"
                 value={formVariete.ensoleillement}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </label>
             <label>
@@ -149,6 +159,11 @@ const handleSubmit = (e) => {
                 placeholder="Ex: 2"
                 value={String(formVariete.frequence_arrosage)}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </label>
             <label>
@@ -175,6 +190,11 @@ const handleSubmit = (e) => {
                 step="0.1"
                 value={formVariete.ph}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </label>
           </fieldset>

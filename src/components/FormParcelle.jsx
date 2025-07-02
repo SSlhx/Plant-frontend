@@ -81,9 +81,15 @@ function FormParcelle() {
           <input
             name="longueur"
             type="number"
+            min ="0"
             placeholder="Ex: 10"
             value={form.longueur}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              if (['e', 'E', '+', '-'].includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
             required
           />
         </label>
@@ -92,9 +98,15 @@ function FormParcelle() {
           <input
             name="largeur"
             type="number"
+            min ="0"
             placeholder="Ex: 5"
             value={form.largeur}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              if (['e', 'E', '+', '-'].includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
             required
           />
         </label>
@@ -103,10 +115,16 @@ function FormParcelle() {
           <input
             name="taille_carres"
             type="number"
+            min ="0"
             step="0.1"
             placeholder="Ex: 0.5"
             value={form.taille_carres}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              if (['e', 'E', '+', '-'].includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
             required
           />
         </label>
