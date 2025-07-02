@@ -4,35 +4,40 @@ import './LoginForm.css';  // ajoute ceci
 
 function LoginForm() {
   const Base_URL = import.meta.env.VITE_URL_API;
+const [loading, setLoading] = useState(false);
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
 
-    try {
-      const res = await fetch(`${Base_URL}/connexion`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ login, password }),
-      });
+  try {
+    const res = await fetch(`${Base_URL}/connexion`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ login, password }),
+    });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || 'Erreur de connexion');
-      }
-
-      await res.json();
-      alert("Connexion réussie !");
-      navigate('/');
-    } catch (err) {
-      setError(err.message);
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message || 'Erreur de connexion');
     }
-  };
+
+    await res.json();
+    navigate('/');
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="login-page">
@@ -55,7 +60,9 @@ function LoginForm() {
             placeholder="Mot de passe"
             required
           />
-          <button type="submit">Se connecter</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Connexion...' : 'Se connecter'}
+          </button>
         </form>
         <p>
           Pas de compte ? <Link className="link" to="/register">Inscrivez-vous</Link>

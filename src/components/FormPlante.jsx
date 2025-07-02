@@ -42,6 +42,7 @@ export default function FormPlante({ onClose }) {
     .then(res => res.json())
     .then(() => {
       setFormPlante({ nom: '', description: '', idCat: '', image: null });
+      window.dispatchEvent(new Event('planteAjoutee'));
       onClose();
     })
     .catch(console.error);

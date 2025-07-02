@@ -11,11 +11,13 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  setLoading(true);
 
     try {
       const res = await fetch(`${Base_URL}/register`, {
@@ -31,9 +33,11 @@ function RegisterForm() {
       }
 
       const data = await res.json();
-      alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
+      // alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
+        setLoading(false);
       navigate('/connexion');      
     } catch (err) {
+        setLoading(false);
       setError(err.message);
     }
   };
@@ -78,7 +82,9 @@ function RegisterForm() {
             type="checkbox"
             required
           /><i>En cochant cette case, j’accepte le traitement de mes données personnelles conformément au <a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees" target="_blank">Règlement Général sur la Protection des Données (RGPD)</a>.</i></label>
-          <button type="submit">S'inscrire</button>
+           <button type="submit" disabled={loading}>
+            {loading ? 'inscription...' : "S'inscrire"}
+          </button>
         </form>
         <p>Déjà inscrit ? <Link className="link" to="/connexion">Connectez-vous</Link> </p>
       </div>

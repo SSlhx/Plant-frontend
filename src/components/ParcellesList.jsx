@@ -9,6 +9,7 @@ export default function ParcellesList() {
   const [parcelles, setParcelles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [parcelleToDelete, setParcelleToDelete] = useState(null); 
   const navigate = useNavigate();
 
@@ -33,19 +34,49 @@ export default function ParcellesList() {
       .finally(() => setLoading(false));
   };
 
-useEffect(() => {
-  fetchParcelles();
-
-  const handleParcelleAjoutee = () => {
+  useEffect(() => {
     fetchParcelles();
-  };
 
-  window.addEventListener('parcelleAjoutee', handleParcelleAjoutee);
+    const handleParcelleAjoutee = () => {
+      fetchParcelles();
+    };
 
-  return () => {
-    window.removeEventListener('parcelleAjoutee', handleParcelleAjoutee);
-  };
-}, [Base_URL]);
+    const handleCategorieAjoutee = () => {
+      console.log('Une catégorie a été ajoutée !');
+      setSuccessMessage('Catégorie ajoutée avec succès !');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    };
+
+    const handlePlanteAjoutee = () => {
+      console.log('Une plante a été ajoutée !');
+      setSuccessMessage('Plante ajoutée avec succès !');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    };
+
+    const handleVarieteAjoutee = () => {
+      console.log('Une variété a été ajoutée !');
+      setSuccessMessage('Variété ajoutée avec succès !');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    };
+
+    window.addEventListener('parcelleAjoutee', handleParcelleAjoutee);
+    window.addEventListener('categorieAjoutee', handleCategorieAjoutee);
+    window.addEventListener('planteAjoutee', handlePlanteAjoutee);
+    window.addEventListener('varieteAjoutee', handleVarieteAjoutee);
+
+    return () => {
+      window.removeEventListener('parcelleAjoutee', handleParcelleAjoutee);
+      window.removeEventListener('categorieAjoutee', handleCategorieAjoutee);
+      window.removeEventListener('planteAjoutee', handlePlanteAjoutee);
+      window.removeEventListener('varieteAjoutee', handleVarieteAjoutee);
+    };
+  }, [Base_URL]);
 
 
   const confirmDelete = (idParcelle) => {
@@ -81,6 +112,13 @@ useEffect(() => {
   return (
     <div className="container my-4 parcelles-list">
       <h1 className="mb-3 bloc-titre">Mes Parcelles</h1>
+
+      {successMessage && (
+        <div className="alert alert-success">
+          {successMessage}
+        </div>
+      )}
+
       <div className='item-liste'>
         {parcelles.length === 0 ? (
           <p>Aucune parcelle trouvée.</p>
