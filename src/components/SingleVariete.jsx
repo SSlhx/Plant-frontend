@@ -48,7 +48,7 @@ const res = await fetch(`${Base_URL}/api/varietes/${id}`);
           <ul>
             {variete.nbGraines && <li><strong>Nombre de graines :</strong> {variete.nbGraines}</li>}
             {variete.ensoleillement && <li><strong>Ensoleillement :</strong> {variete.ensoleillement}</li>}
-            {variete.frequence_arrosage && <li><strong>Arrosage :</strong> {variete.frequence_arrosage}</li>}
+            {variete.frequence_arrosage && <li><strong>Arrosage :</strong> Tous les {variete.frequence_arrosage} jour(s)</li>}
             {variete.date_debut_periode_plantation && (
               <li>
                 <strong>Début plantation :</strong> {variete.date_debut_periode_plantation}

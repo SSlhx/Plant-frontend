@@ -29,34 +29,45 @@ export default function FormVariete({ onClose }) {
   const handleChange = (e) => {
     setFormVariete(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const formData = new FormData();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`${Base_URL}/api/varietes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formVariete),
-    })
-      .then(res => res.json())
-      .then(() => {
-        setFormVariete({
-          libelle: '',
-          description: '',
-          nbGraines: '',
-          ensoleillement: '',
-          frequence_arrosage: '',
-          date_debut_periode_plantation: '',
-          date_fin_periode_plantation: '',
-          resistance_froid: '',
-          temps_avant_recolte: '',
-          ph: '',
-          image: '',
-          idPlante: '',
-        });
-        onClose();
-      })
-      .catch(console.error);
-  };
+  for (const key in formVariete) {
+    if (formVariete[key] !== '') {
+      if (key === 'image' && formVariete.image instanceof File) {
+        formData.append(key, formVariete.image);
+      } else {
+        formData.append(key, formVariete[key]);
+      }
+    }
+  }
+
+  fetch(`${Base_URL}/api/varietes`, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(res => res.json())
+  .then(() => {
+    setFormVariete({
+      libelle: '',
+      description: '',
+      nbGraines: '',
+      ensoleillement: '',
+      frequence_arrosage: '',
+      date_debut_periode_plantation: '',
+      date_fin_periode_plantation: '',
+      resistance_froid: '',
+      temps_avant_recolte: '',
+      ph: '',
+      image: '',
+      idPlante: '',
+    });
+    onClose();
+  })
+  .catch(console.error);
+};
+
 
   return (
     <>
@@ -128,11 +139,15 @@ export default function FormVariete({ onClose }) {
               />
             </label>
             <label>
-              Fréquence d'arrosage
+              Fréquence d'arrosage (en jour)
               <input
+              type="number"
+                min="0"
+                
+                step="1"
                 name="frequence_arrosage"
-                placeholder="Ex: 2 fois par semaine"
-                value={formVariete.frequence_arrosage}
+                placeholder="Ex: 2"
+                value={String(formVariete.frequence_arrosage)}
                 onChange={handleChange}
               />
             </label>
@@ -185,11 +200,14 @@ export default function FormVariete({ onClose }) {
               />
             </label>
             <label>
-              Temps avant la récolte
+              Temps avant la récolte (en jour)
               <input
+              type="number"
+                min="0"
+                step="1"
                 name="temps_avant_recolte"
-                placeholder="Ex: 90 jours"
-                value={formVariete.temps_avant_recolte}
+                placeholder="Ex: 90"
+                value={String(formVariete.temps_avant_recolte)}
                 onChange={handleChange}
               />
             </label>
@@ -198,12 +216,12 @@ export default function FormVariete({ onClose }) {
           <fieldset>
             <legend>Image</legend>
             <label>
-              URL de l'image
+              Image
               <input
+                type="file"
                 name="image"
-                placeholder="https://..."
-                value={formVariete.image}
-                onChange={handleChange}
+                accept="image/*"
+                onChange={(e) => setFormVariete(prev => ({ ...prev, image: e.target.files[0] }))}
               />
             </label>
           </fieldset>
