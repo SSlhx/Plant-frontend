@@ -1,8 +1,11 @@
 
 .Liste{
 .card{
-    background-color: #fefee0;
+    /* background-color: #fefee0; */
     border: 3px solid #543D35;
+}
+.row{
+    gap: 0 !important;
 }
 .bloc-image{
     display: flex;
