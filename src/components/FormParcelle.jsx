@@ -14,7 +14,6 @@ function FormParcelle() {
   });
   const navigate = useNavigate();
 
-  // Vérification session utilisateur
   useEffect(() => {
     async function fetchSession() {
       const sessionUser = await CheckUser();
@@ -32,32 +31,39 @@ function FormParcelle() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = e => {
-  e.preventDefault();
-  if (!user) {
-    alert("Utilisateur non connecté");
-    return;
-  }
-  const dataToSend = { ...form, idUser: user.user_id };
-  fetch(`${Base_URL}/api/parcelles`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(dataToSend),
-    credentials: 'include'
-  })
-    .then(res => {
-      if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
-      return res.json();
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!user) {
+      alert("Utilisateur non connecté");
+      return;
+    }
+
+    if (!form.taille_carres) {
+      alert("Merci de sélectionner la taille des carrés !");
+      return;
+    }
+
+    const dataToSend = { ...form, idUser: user.user_id };
+    fetch(`${Base_URL}/api/parcelles`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dataToSend),
+      credentials: 'include'
     })
-    .then(newParcelle => {
-      alert('Parcelle ajoutée avec succès !');
-      setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
-      window.dispatchEvent(new Event('parcelleAjoutee'));  // <-- ajouté ici
-    })
-    .catch(err => {
-      alert('Erreur lors de l\'ajout : ' + err.message);
-    });
-};
+      .then(res => {
+        if (!res.ok) throw new Error('Erreur HTTP ' + res.status);
+        return res.json();
+      })
+      .then(newParcelle => {
+        alert('Parcelle ajoutée avec succès !');
+        setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
+        window.dispatchEvent(new Event('parcelleAjoutee'));
+      })
+      .catch(err => {
+        alert('Erreur lors de l\'ajout : ' + err.message);
+      });
+  };
+
 
   return (
     <>
@@ -81,7 +87,8 @@ function FormParcelle() {
           <input
             name="longueur"
             type="number"
-            min ="0"
+            min ="1"
+            max="30"
             placeholder="Ex: 10"
             value={form.longueur}
             onChange={handleChange}
@@ -98,7 +105,8 @@ function FormParcelle() {
           <input
             name="largeur"
             type="number"
-            min ="0"
+            min ="1"
+            max="30"
             placeholder="Ex: 5"
             value={form.largeur}
             onChange={handleChange}
@@ -112,21 +120,16 @@ function FormParcelle() {
         </label>
         <label>
           Taille des carrés (m) *
-          <input
+          <select
             name="taille_carres"
-            type="number"
-            min ="0"
-            step="0.1"
-            placeholder="Ex: 0.5"
             value={form.taille_carres}
             onChange={handleChange}
-            onKeyDown={(e) => {
-              if (['e', 'E', '+', '-'].includes(e.key)) {
-                e.preventDefault();
-              }
-            }}
             required
-          />
+          >
+            <option value="">-- Sélectionner --</option>
+            <option value="0.5">0.5</option>
+            <option value="1">1</option>
+          </select>
         </label>
       </fieldset>
       <button type="submit">
