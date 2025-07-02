@@ -129,6 +129,7 @@ const handleSubmit = (e) => {
                 type="number"
                 name="nbGraines"
                 placeholder="Ex: 20"
+                
                 value={formVariete.nbGraines}
                 onChange={handleChange}
                 onKeyDown={(e) => {
@@ -136,7 +137,7 @@ const handleSubmit = (e) => {
                     e.preventDefault();
                   }
                 }}
-                min="0"
+                min="1"
               />
             </label>
             <label>
