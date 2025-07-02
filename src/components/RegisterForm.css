@@ -16,9 +16,9 @@
   text-align: center;
 }
 
-.register-card h2 {
+.register-card h1 {
   margin-bottom: 1rem;
-  color: #198754;
+  /* color: #198754; */
 }
 
 .register-card .error {
@@ -56,3 +56,29 @@
   margin-top: 1rem;
   font-size: 0.9rem;
 }
+
+#champ-rgpd {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  text-align: left;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+#champ-rgpd input {
+  accent-color: #198754;
+}
+
+#champ-rgpd i {
+  font-size: small;
+  a {
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #198754;
+    }
+  }
+}
+
