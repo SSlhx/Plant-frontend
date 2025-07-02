@@ -89,6 +89,14 @@ function MainLayout() {
                 </ProtectedRoute>
               }
             />
+
+            <Route
+              path="*"
+              element={
+                <ProtectedRoute>
+                  <ParcellesList />
+                </ProtectedRoute>
+              } />
           </Routes>
         </div>
 
