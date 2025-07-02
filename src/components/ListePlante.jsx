@@ -26,7 +26,6 @@ const PlantesList = () => {
     try {
       setLoading(true);
 
-      // On force l'URL selon si c'est vraiment null ou pas
       const url = idCat === null ? `${Base_URL}/ListePlant` : `${Base_URL}/ListePlant/${idCat}`;
       console.log("FetchPlantes -> idCat:", idCat, "URL:", url);
 
@@ -59,7 +58,7 @@ const PlantesList = () => {
           <button
             key={cat.id ?? "all"}
             className={`btn ${selectedCat === cat.id ? "btn-active" : "btn-none"}`}
-            onClick={() => setSelectedCat(cat.id ?? null)} // Forcer null si besoin
+            onClick={() => setSelectedCat(cat.id ?? null)} 
           >
             {cat.libelle}
           </button>

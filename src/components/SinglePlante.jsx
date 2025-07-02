@@ -38,7 +38,7 @@ const SinglePlante = () => {
       <div className="row mb-4">
         <div className="col-md-6 bloc-image">
           <img
-            src={plante.imageUrl ?? 'https://img.freepik.com/vecteurs-libre/tomates-fraiches_1053-566.jpg'}
+            src={plante.image ?? 'https://img.freepik.com/vecteurs-libre/tomates-fraiches_1053-566.jpg'}
             alt={plante.nom}
             className="img-fluid rounded mb-3 img-principal"
           />
