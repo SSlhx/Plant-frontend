@@ -73,6 +73,42 @@
       .btn {
         transition: all ease 0.2s;
       }
+
+      .delete{
+        background-color: #9C2828;
+        border: #9C2828 3px solid;
+        padding: 5px 16px;
+        margin-right: 5px;
+        transition: all ease 0.2s;
+      } .delete:hover{
+        background-color: #ffffff;
+        color: #9C2828;
+
+      }
+      .cancel{
+        transition: all ease 0.2s;
+      }.cancel:hover{
+        background: #ffffff;
+        color: #198754;
+        border: #198754 3px solid;
+      }
+
+    }
+  }
+  @media screen and (max-width: 520px){
+    .bloc-titre{
+      text-align: center;
+    }
+    .lien {
+      display: flex;
+      flex-direction: column;
+
+    }
+    .lien .btn{
+      font-size: smaller;
+      margin-bottom: 5px;
+      margin-right: 0;
+      padding: 6px 12px;    
     }
   }
 }

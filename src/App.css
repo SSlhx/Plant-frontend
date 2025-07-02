@@ -6,6 +6,9 @@ body {
   margin: 0;
   font-family: 'nunito';
 }
+.label {
+  font-family: 'nunito';
+}
 
 h1, h2, h3, h4, h5, h6, button, input, textarea, select {
   font-family: 'quicksand';
@@ -21,6 +24,7 @@ button {
     text-transform: uppercase;
     font-weight: bold;
     color: #fff;
+    transition: all ease 0.2s;
 }
 
 button:hover {

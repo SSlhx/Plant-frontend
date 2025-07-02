@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import "./Form.css"
 export default function FormPlante({ onClose }) {
   const Base_URL = import.meta.env.VITE_URL_API;
 
@@ -37,37 +37,55 @@ export default function FormPlante({ onClose }) {
   };
 
   return (
-    <>
-      <h2>Ajouter une Plante</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <input
-          name="nom"
-          placeholder="Nom de la plante"
-          value={formPlante.nom}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Description de la plante"
-          value={formPlante.description}
-          onChange={handleChange}
-        />
-        <select
-          name="idCat"
-          value={formPlante.idCat}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Choisir une catégorie</option>
-          {categories.map(cat => (
-            <option key={cat.idCat} value={cat.idCat}>
-              {cat.libelle}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Ajouter</button>
-      </form>
-    </>
+   <>
+  <div className="Form-add">
+    <h2>Ajouter une Plante</h2>
+    <form onSubmit={handleSubmit} className="form">
+      <fieldset>
+        <legend>Informations générales</legend>
+        <label>
+          Nom de la plante *
+          <input
+            name="nom"
+            placeholder="Ex: Tomate"
+            value={formPlante.nom}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Description
+          <textarea
+            name="description"
+            placeholder="Description de la plante"
+            value={formPlante.description}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Catégorie *
+          <select
+            name="idCat"
+            value={formPlante.idCat}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Choisir une catégorie</option>
+            {categories.map(cat => (
+              <option key={cat.idCat} value={cat.idCat}>
+                {cat.libelle}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+
+      <button type="submit">
+        Ajouter la plante
+      </button>
+    </form>
+  </div>
+</>
+
   );
 }

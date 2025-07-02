@@ -126,4 +126,9 @@
   border: none;
   background: none;
   cursor: pointer;
+  background-color: #198754;
+  border: none;
+}.close-button:hover{
+  background-color: #543d35;
+  border: none;
 }

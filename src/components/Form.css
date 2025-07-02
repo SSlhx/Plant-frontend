@@ -1,0 +1,82 @@
+.Form-add {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #e0f0df;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form fieldset {
+  border: 2px solid #198754;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+}
+
+.form legend {
+  background-color: #198754;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 250px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form input,
+.form textarea,
+.form select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  border-color: #198754;
+  outline: none;
+}
+
+.form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+Bouton submit
+.form button[type="submit"] {
+  align-self: center;
+
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+ 
+}
+
+

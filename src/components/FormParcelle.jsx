@@ -60,41 +60,64 @@ function FormParcelle() {
 };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "400px" }}>
-      <input
-        name="libelle"
-        placeholder="Nom de la parcelle"
-        value={form.libelle}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="longueur"
-        type="number"
-        placeholder="Longueur"
-        value={form.longueur}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="largeur"
-        type="number"
-        placeholder="Largeur"
-        value={form.largeur}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="taille_carres"
-        type="number"
-        step="0.1"
-        placeholder="Taille des carrés"
-        value={form.taille_carres}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Ajouter la parcelle</button>
+    <>
+  <div className="Form-add">
+    <h2>Ajouter une Parcelle</h2>
+    <form onSubmit={handleSubmit} className="form">
+      <fieldset>
+        <legend>Informations sur la parcelle</legend>
+        <label>
+          Nom de la parcelle *
+          <input
+            name="libelle"
+            placeholder="Ex: Parcelle Nord"
+            value={form.libelle}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Longueur (m) *
+          <input
+            name="longueur"
+            type="number"
+            placeholder="Ex: 10"
+            value={form.longueur}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Largeur (m) *
+          <input
+            name="largeur"
+            type="number"
+            placeholder="Ex: 5"
+            value={form.largeur}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Taille des carrés (m) *
+          <input
+            name="taille_carres"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 0.5"
+            value={form.taille_carres}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      </fieldset>
+      <button type="submit">
+        Ajouter la parcelle
+      </button>
     </form>
+  </div>
+</>
+
   );
 }
 

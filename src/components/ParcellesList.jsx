@@ -105,8 +105,8 @@ useEffect(() => {
         <div className="popup-confirmation">
           <div className="popup-content">
             <p>Confirmez-vous la suppression de cette parcelle ?</p>
-            <button onClick={deleteParcelle} className="btn btn-danger me-2">Oui, supprimer</button>
-            <button onClick={cancelDelete} className="btn btn-secondary">Annuler</button>
+            <button onClick={deleteParcelle} className="delete ">Oui, supprimer</button>
+            <button onClick={cancelDelete} className="cancel ">Annuler</button>
           </div>
         </div>
       )}
