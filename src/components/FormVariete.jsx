@@ -4,14 +4,19 @@ export default function FormVariete({ onClose }) {
   const Base_URL = import.meta.env.VITE_URL_API;
 
   const [plantes, setPlantes] = useState([]);
+
+  const aujourdhui = new Date().toISOString().split('T')[0]; // format YYYY-MM-DD
+  const dateObj = new Date();
+  dateObj.setDate(dateObj.getDate() + 1);
+  const demain = dateObj.toISOString().split('T')[0];
   const [formVariete, setFormVariete] = useState({
     libelle: '',
     description: '',
     nbGraines: '',
     ensoleillement: '',
     frequence_arrosage: '',
-    date_debut_periode_plantation: '',
-    date_fin_periode_plantation: '',
+    date_debut_periode_plantation: aujourdhui,
+    date_fin_periode_plantation: demain,
     resistance_froid: '',
     temps_avant_recolte: '',
     ph: '',
@@ -207,6 +212,7 @@ const handleSubmit = (e) => {
                 type="date"
                 name="date_debut_periode_plantation"
                 value={formVariete.date_debut_periode_plantation}
+                max={formVariete.date_fin_periode_plantation || undefined}
                 onChange={handleChange}
               />
             </label>
@@ -216,6 +222,7 @@ const handleSubmit = (e) => {
                 type="date"
                 name="date_fin_periode_plantation"
                 value={formVariete.date_fin_periode_plantation}
+                min={formVariete.date_debut_periode_plantation || undefined}
                 onChange={handleChange}
               />
             </label>
