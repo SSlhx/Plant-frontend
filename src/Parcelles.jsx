@@ -8,6 +8,8 @@ function Parcelles() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [editMode, setEditMode] = useState(false);
+  const [nouveauNom, setNouveauNom] = useState('');
 
   // Récupération idParcelle depuis location.state ou localStorage
   const idParcelle = location.state?.idParcelle || localStorage.getItem('idParcelle');
@@ -89,6 +91,41 @@ function Parcelles() {
 
   // Trouve la parcelle courante selon l'idParcelle
   const parcelleCourante = parcelles.find(p => p.idParcelle.toString() === idParcelle);
+
+  useEffect(() => {
+    if (parcelleCourante) {
+      setNouveauNom(parcelleCourante.libelle);
+    }
+  }, [parcelleCourante]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`${Base_URL}/api/parcelles/${parcelleCourante.idParcelle}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ libelle: nouveauNom }),
+      credentials: 'include',
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Échec de la mise à jour');
+        return res.json();
+      })
+      .then(() => {
+        // Mise à jour locale
+        setParcelles(prev =>
+          prev.map(p =>
+            p.idParcelle === parcelleCourante.idParcelle
+              ? { ...p, libelle: nouveauNom }
+              : p
+          )
+        );
+        setEditMode(false);
+      })
+      .catch(console.error);
+  };
 
   // const handleChange = e => {
   //   setForm({ ...form, [e.target.name]: e.target.value });
@@ -255,8 +292,8 @@ function Parcelles() {
     dateRecolte = d.toLocaleDateString();
   }
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
-      <h2>Parcelles</h2>
+    <div className="container my-4 page">
+      {/* <h2>Parcelles</h2> */}
       {/* <h3>Ajouter une parcelle</h3>
       <form onSubmit={handleSubmit} style={{ marginBottom: "3rem", display: "flex", gap: "20px", flexWrap: "wrap", flexDirection: "column" }}>
         <input name="libelle" placeholder="Nom" onChange={handleChange} required />
@@ -267,73 +304,92 @@ function Parcelles() {
       </form> */}
 
       {parcelleCourante ? (
-        <div style={{ marginBottom: "5rem" }}>
-          <div style={{ marginBottom: "1rem" }}>
-            <label>Zoom: </label>
-            <input
-              type="range"
-              min="0.3"
-              max="2"
-              step="0.01"
-              value={zooms[parcelleCourante.idParcelle] || 0.6}
-              onChange={(e) => handleZoomChange(parcelleCourante.idParcelle, e.target.value)}
-            />
-            <span> {Math.round((zooms[parcelleCourante.idParcelle] || 0.6) * 100)}%</span>
+        <div>
+          <a className="bouton-retour" href="/">RETOUR</a>
+          <div class="titre-parcelle mt-4">
+            <div className="entete">
+              <h1>{parcelleCourante.libelle}</h1>
+              <button className="bouton-edit bouton-vert" onClick={() => setEditMode(true)}><svg xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 -960 960 960" width="100%" fill="#ffffff"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg></button>
+            </div>
+            { editMode ? (
+              <form id="modif-parcelle" onSubmit={handleSubmit}>
+                  <label for="titre"><strong>Changer le nom de la parcelle pour :</strong><input id="titre" name="titre" value={nouveauNom} onChange={(e) => setNouveauNom(e.target.value)} placeholder="Titre de la parcelle" /></label>
+                  <div>
+                      <button className="bouton-vert" type="submit">Enregistrer</button>
+                      <button className="bouton-rouge ms-2" type="button" onClick={() => setEditMode(false)}>Annuler</button>
+                  </div>
+              </form>
+            ): (
+              <div></div>
+            )}
           </div>
-          <h3>{parcelleCourante.libelle}</h3>
-          <div style={{ overflow: "auto", maxWidth: "90vw", minWidth: "60vw", maxHeight: "100vw", minHeight: "10vw" }}>
-            <div style={{ transform: `scale(${zooms[parcelleCourante.idParcelle] || 0.6})`, transformOrigin: "left top" }}>
-              <table style={{ borderCollapse: "collapse", width: "max-content", height: "max-content" }}>
-                <tbody>
-                  {[...Array(parcelleCourante.longueur / parcelleCourante.taille_carres)].map((_, row) => (
-                    <tr key={row}>
-                      {[...Array(parcelleCourante.largeur / parcelleCourante.taille_carres)].map((_, col) => {
-                        const pousse = parcelleCourante.pousses.find(pousse => pousse.x === row && pousse.y === col);
-                        return (
-                          <td
-                            key={col}
-                            className={`${row}-${col}`}
-                            onClick={(e) => {
-                              const rect = e.target.getBoundingClientRect();
-                              setMenuPosition({
-                                top: rect.top + window.scrollY,
-                                left: rect.left + window.scrollX + rect.width + 10,
-                              });
-                              setSelectedCell({ x: row, y: col, parcelleId: parcelleCourante.idParcelle });
-                              setShowForm(false);
-                            }}
-                            style={{
-                              border: selectedCell?.x === row && selectedCell?.y === col && selectedCell?.parcelleId === parcelleCourante.idParcelle
-                                ? "2px solid #9C2828"
-                                : "1px solid black",
-                              width: "75px",
-                              height: "75px",
-                              textAlign: "center",
-                              backgroundColor: pousse ? "#198754" : "#543D35"
-                            }}
-                          >
-                            {pousse?.variete?.image && (
-                              <div style={{ cursor: "pointer" }}>
-                                <div style={{ width: "55px", height: "55px", marginLeft: "auto", marginRight: "auto" }}>
-                                  <img
-                                    src={`${pousse.variete.image}`}
-                                    alt={pousse.variete.libelle || 'Plante'}
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                  />
+          <div className="card-single-parcelle mt-3">
+            <div>
+              <label>Zoom: </label>
+              <input
+                type="range"
+                min="0.3"
+                max="2"
+                step="0.01"
+                value={zooms[parcelleCourante.idParcelle] || 0.6}
+                onChange={(e) => handleZoomChange(parcelleCourante.idParcelle, e.target.value)}
+              />
+              <span> {Math.round((zooms[parcelleCourante.idParcelle] || 0.6) * 100)}%</span>
+            </div>
+            <div style={{ overflow: "auto", maxWidth: "90vw", minWidth: "60vw", maxHeight: "100vw", minHeight: "50vw" }}>
+              <div style={{ transform: `scale(${zooms[parcelleCourante.idParcelle] || 0.6})`, transformOrigin: "left top" }}>
+                <table style={{ borderCollapse: "collapse", width: "max-content", height: "max-content" }}>
+                  <tbody>
+                    {[...Array(parcelleCourante.longueur / parcelleCourante.taille_carres)].map((_, row) => (
+                      <tr key={row}>
+                        {[...Array(parcelleCourante.largeur / parcelleCourante.taille_carres)].map((_, col) => {
+                          const pousse = parcelleCourante.pousses.find(pousse => pousse.x === row && pousse.y === col);
+                          return (
+                            <td
+                              key={col}
+                              className={`${row}-${col}`}
+                              onClick={(e) => {
+                                const rect = e.target.getBoundingClientRect();
+                                setMenuPosition({
+                                  top: rect.top + window.scrollY,
+                                  left: rect.left + window.scrollX + rect.width + 10,
+                                });
+                                setSelectedCell({ x: row, y: col, parcelleId: parcelleCourante.idParcelle });
+                                setShowForm(false);
+                              }}
+                              style={{
+                                border: selectedCell?.x === row && selectedCell?.y === col && selectedCell?.parcelleId === parcelleCourante.idParcelle
+                                  ? "2px solid #9C2828"
+                                  : "1px solid black",
+                                width: "75px",
+                                height: "75px",
+                                textAlign: "center",
+                                backgroundColor: pousse ? "#198754" : "#543D35"
+                              }}
+                            >
+                              {pousse?.variete?.image && (
+                                <div style={{ cursor: "pointer" }}>
+                                  <div style={{ width: "55px", height: "55px", marginLeft: "auto", marginRight: "auto" }}>
+                                    <img
+                                      src={`${pousse.variete.image}`}
+                                      alt={pousse.variete.libelle || 'Plante'}
+                                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           {selectedCell && (
-            <div style={{
+            <div className="modal-parcelle" style={{
               position: 'absolute',
               top: `${menuPosition.top}px`,
               left: `${menuPosition.left}px`,
@@ -355,13 +411,13 @@ function Parcelles() {
                     </div>
                   )}
 
-                  <button onClick={() => setShowForm(true)} disabled={!!pousseExistante}>
+                  <button className="bouton-vert" onClick={() => setShowForm(true)} disabled={!!pousseExistante}>
                     Ajouter une pousse
                   </button>
-                  <button onClick={handleDeletePousse} disabled={!pousseExistante}>
+                  <button className="bouton-vert" onClick={handleDeletePousse} disabled={!pousseExistante}>
                     Supprimer la pousse
                   </button>
-                  <button onClick={() => setSelectedCell(null)}>
+                  <button className="bouton-rouge" onClick={() => setSelectedCell(null)}>
                     Fermer
                   </button>
                 </>

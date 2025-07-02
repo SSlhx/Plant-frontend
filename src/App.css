@@ -18,8 +18,8 @@ h1, h2, h3, h4, h5, h6, button, input, textarea, select {
 
 button {
     padding: 5px 16px;
-    background-color: #198754;
-    border: solid 3px #198754;
+    /* background-color: #198754;
+    border: solid 3px #198754; */
     border-radius: 5px;
     text-transform: uppercase;
     font-weight: bold;
@@ -31,6 +31,42 @@ button:hover {
   background-color: #543d35;
   border: solid 3px #543d35;
   /* box-shadow: 1px 1px 1px 1px #543d35; */
+}
+
+.bouton-retour {
+  padding: 5px 16px;
+  background-color: #198754;
+  border: solid 3px #198754;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  transition: all ease 0.2s;
+  text-decoration: none;
+  &:hover {
+  background-color: #543d35;
+  border: solid 3px #543d35;
+  }
+}
+
+.bouton-vert {
+  margin-top: 1rem;
+  background-color: #198754;
+  border: solid 3px #198754;
+  &:hover {
+    background-color: #543D35;
+  border: solid 3px #543D35;
+  }
+}
+
+.bouton-rouge {
+  margin-top: 1rem;
+  background-color: #9C2828;
+  border: solid 3px #9C2828;
+  &:hover {
+    background-color: #543D35;
+  border: solid 3px #543D35;
+  }
 }
 
 input, textarea, select {
@@ -61,6 +97,46 @@ input, textarea, select {
   flex: 1;
   background-color: #e8f5e9;
   overflow: hidden;
+}
+
+.page {
+  padding: 16px;
+  max-width: 90%;
+  margin: 20px auto;
+}
+
+.titre-parcelle {
+  display: flex;
+  flex-direction: column;
+  .entete {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    h1 {
+      margin-right: 60px;
+    }
+    .bouton-edit {
+      margin-top: 0;
+      width: 48px;
+      height: 48px;
+      padding: 5px;
+      border-radius: 25px;
+    }
+  }
+  #modif-parcelle {
+    label {
+      input {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+.modal-parcelle {
+  button {
+    margin: 2.5px;
+  }
 }
 
 .content {
@@ -146,6 +222,12 @@ input[type=range] {
       }
     }
   }
+}
+
+.card-single-parcelle {
+  background-color: #fff;
+  border-radius: 8px;
+  border: solid 20px #fff;
 }
 
 @media screen and (max-width: 991px) {

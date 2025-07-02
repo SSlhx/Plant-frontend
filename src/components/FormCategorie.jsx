@@ -66,7 +66,7 @@ export default function FormCategorie({ onClose }) {
         </label> */}
       </fieldset>
 
-      <button type="submit">
+      <button className="bouton-vert" type="submit">
         Ajouter la catégorie
       </button>
     </form>

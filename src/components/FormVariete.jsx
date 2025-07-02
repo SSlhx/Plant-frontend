@@ -253,7 +253,7 @@ const handleSubmit = (e) => {
             </label>
           </fieldset>
 
-          <button type="submit" >
+          <button className="bouton-vert" type="submit" >
             Ajouter la variété
           </button>
         </form>

@@ -80,7 +80,7 @@ export default function FormPlante({ onClose }) {
         </label>
       </fieldset>
 
-      <button type="submit">
+      <button className="bouton-vert" type="submit">
         Ajouter la plante
       </button>
     </form>
