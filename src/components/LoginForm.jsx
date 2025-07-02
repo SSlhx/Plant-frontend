@@ -60,6 +60,7 @@ function LoginForm() {
         <p>
           Pas de compte ? <Link className="link" to="/register">Inscrivez-vous</Link>
         </p>
+        <div className="mdp-oublie">Mot de passe oublié ? Contactez un administrateur.</div>
       </div>
     </div>
   );
