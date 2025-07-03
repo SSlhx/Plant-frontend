@@ -27,14 +27,13 @@ function RegisterForm() {
         body: JSON.stringify({ nom, login, email, password }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || 'Erreur lors de l\'inscription');
-      }
+    const data = await res.json();
 
-      const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || 'Erreur lors de l\'inscription');
+    }
+
       // alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
-        setLoading(false);
       navigate('/connexion');      
     } catch (err) {
         setLoading(false);
