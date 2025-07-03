@@ -15,6 +15,7 @@ import SingleVariete from "./components/SingleVariete";
 import ParcellesList from "./components/ParcellesList";
 import Calendrier from './components/Calendrier';
 
+
 function App() {
   return (
     <Router>
@@ -63,8 +64,8 @@ function MainLayout() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/plante/:id" element={<SinglePlante />} />
-            <Route path="/variete/:id" element={<SingleVariete />} />
+            <Route path="/plante/:id" element={<ProtectedRoute><SinglePlante /></ProtectedRoute>} />
+            <Route path="/variete/:id" element={<ProtectedRoute><SingleVariete /></ProtectedRoute>} />
             <Route
               path="/profile"
               element={

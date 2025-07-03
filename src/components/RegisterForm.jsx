@@ -11,11 +11,13 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  setLoading(true);
 
     try {
       const res = await fetch(`${Base_URL}/register`, {
@@ -25,15 +27,16 @@ function RegisterForm() {
         body: JSON.stringify({ nom, login, email, password }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || 'Erreur lors de l\'inscription');
-      }
+    const data = await res.json();
 
-      const data = await res.json();
-      alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
+    if (!res.ok) {
+      throw new Error(data.error || 'Erreur lors de l\'inscription');
+    }
+
+      // alert("Inscription réussie ! Voici les données envoyées :\n\n" + JSON.stringify(data, null, 2));  
       navigate('/connexion');      
     } catch (err) {
+        setLoading(false);
       setError(err.message);
     }
   };
@@ -78,7 +81,9 @@ function RegisterForm() {
             type="checkbox"
             required
           /><i>En cochant cette case, j’accepte le traitement de mes données personnelles conformément au <a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees" target="_blank">Règlement Général sur la Protection des Données (RGPD)</a>.</i></label>
-          <button type="submit">S'inscrire</button>
+           <button type="submit" disabled={loading}>
+            {loading ? 'inscription...' : "S'inscrire"}
+          </button>
         </form>
         <p>Déjà inscrit ? <Link className="link" to="/connexion">Connectez-vous</Link> </p>
       </div>

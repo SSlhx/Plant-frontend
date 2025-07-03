@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ListePlante.css";
 import { Link } from "react-router-dom";
+import planteNot from '../assets/media/plante-not.png';
 
 const Base_URL = import.meta.env.VITE_URL_API;
 
@@ -76,7 +77,7 @@ const PlantesList = () => {
                 <div className="card h-100">
                   <div className="bloc-image">
                     <img
-                      src={item.image || "https://www.svgrepo.com/show/407629/tomato.svg"}
+                      src={item.image || planteNot}
                       className="card-img-top"
                       alt={item.nom}
                     />

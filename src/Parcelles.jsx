@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CheckUser } from './utils/session';
+import { Link } from 'react-router-dom';
+
 
 function Parcelles() {
   const Base_URL = import.meta.env.VITE_URL_API;
@@ -10,6 +12,7 @@ function Parcelles() {
   const location = useLocation();
   const [editMode, setEditMode] = useState(false);
   const [nouveauNom, setNouveauNom] = useState('');
+  
 
   // Récupération idParcelle depuis location.state ou localStorage
   const idParcelle = location.state?.idParcelle || localStorage.getItem('idParcelle');
@@ -344,6 +347,8 @@ function Parcelles() {
                       <tr key={row}>
                         {[...Array(parcelleCourante.largeur / parcelleCourante.taille_carres)].map((_, col) => {
                           const pousse = parcelleCourante.pousses.find(pousse => pousse.x === row && pousse.y === col);
+                          const idVariete = pousse?.variete?.idVariete;
+
                           return (
                             <td
                               key={col}
@@ -354,7 +359,7 @@ function Parcelles() {
                                   top: rect.top + window.scrollY,
                                   left: rect.left + window.scrollX + rect.width + 10,
                                 });
-                                setSelectedCell({ x: row, y: col, parcelleId: parcelleCourante.idParcelle });
+                                setSelectedCell({ x: row, y: col, parcelleId: parcelleCourante.idParcelle, idVariete});
                                 setShowForm(false);
                               }}
                               style={{
@@ -408,7 +413,13 @@ function Parcelles() {
                       <p><strong>Date de plantation :</strong> {new Date(pousseExistante.datePlantation).toLocaleDateString()}</p>
                       <p><strong>Variété :</strong> {pousseExistante.variete?.libelle || "Non renseignée"}</p>
                       <p><strong>Date de la future récolte :</strong>{dateRecolte || "Inconnue"}</p>
+                     <Link to={`/variete/${selectedCell.idVariete}`} disabled={!pousseExistante}>
+                    <button className="bouton-vert" disabled={!pousseExistante}>
+                      Info Plante
+                    </button>
+                  </Link>
                     </div>
+                    
                   )}
 
                   <button className="bouton-vert" onClick={() => setShowForm(true)} disabled={!!pousseExistante}>
@@ -427,8 +438,14 @@ function Parcelles() {
                   <input
                     type="number"
                     placeholder="Nb de plants"
+                    min="1"
                     value={formPousse.nbPlants}
                     onChange={(e) => setFormPousse({ ...formPousse, nbPlants: e.target.value })}
+                    onKeyDown={(e) => {
+                      if (['e', 'E', '+', '-'].includes(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
                     required
                   />
                   <select

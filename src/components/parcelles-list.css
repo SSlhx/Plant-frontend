@@ -8,6 +8,15 @@
     padding: 16px;
     max-width: 100%;
     background-color: white;
+    .btn-none-parcelle{
+        color: rgb(255, 255, 255);
+        background-color: #198754;
+        border-radius: 79px;
+        width: 25px;
+        display: inline-block;
+        font-size: larger;
+        text-align: center;
+      }
   }
   .item {
     display: flex;
@@ -85,6 +94,7 @@
         color: #9C2828;
 
       }
+      
       .cancel{
         transition: all ease 0.2s;
       }.cancel:hover{

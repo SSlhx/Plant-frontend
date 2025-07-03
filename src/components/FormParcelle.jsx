@@ -55,7 +55,7 @@ function FormParcelle() {
         return res.json();
       })
       .then(newParcelle => {
-        alert('Parcelle ajoutée avec succès !');
+        // alert('Parcelle ajoutée avec succès !');
         setForm({ libelle: '', longueur: '', largeur: '', taille_carres: '' });
         window.dispatchEvent(new Event('parcelleAjoutee'));
       })
