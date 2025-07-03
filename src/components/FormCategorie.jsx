@@ -27,6 +27,7 @@ export default function FormCategorie({ onClose }) {
       .then(res => res.json())
       .then(() => {
         setFormCategorie({ libelle: '', idCatParent: '' });
+        window.dispatchEvent(new Event('categorieAjoutee'));
         onClose();
       })
       .catch(console.error);

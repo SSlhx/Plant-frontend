@@ -68,6 +68,7 @@ const handleSubmit = (e) => {
       image: '',
       idPlante: '',
     });
+    window.dispatchEvent(new Event('varieteAjoutee'));
     onClose();
   })
   .catch(console.error);
@@ -129,6 +130,7 @@ const handleSubmit = (e) => {
                 type="number"
                 name="nbGraines"
                 placeholder="Ex: 20"
+                
                 value={formVariete.nbGraines}
                 onChange={handleChange}
                 onKeyDown={(e) => {
@@ -136,7 +138,7 @@ const handleSubmit = (e) => {
                     e.preventDefault();
                   }
                 }}
-                min="0"
+                min="1"
               />
             </label>
             <label>
@@ -146,11 +148,7 @@ const handleSubmit = (e) => {
                 placeholder="Ex: plein soleil"
                 value={formVariete.ensoleillement}
                 onChange={handleChange}
-                onKeyDown={(e) => {
-                  if (['e', 'E', '+', '-'].includes(e.key)) {
-                    e.preventDefault();
-                  }
-                }}
+                
               />
             </label>
             <label>
@@ -236,6 +234,11 @@ const handleSubmit = (e) => {
                 placeholder="Ex: 90"
                 value={String(formVariete.temps_avant_recolte)}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </label>
           </fieldset>
