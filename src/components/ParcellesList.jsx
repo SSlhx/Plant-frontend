@@ -11,6 +11,8 @@ export default function ParcellesList() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [parcelleToDelete, setParcelleToDelete] = useState(null); 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate();
 
   const handleClick = (idParcelle) => {
@@ -60,9 +62,9 @@ export default function ParcellesList() {
     const handleVarieteAjoutee = () => {
       console.log('Une variété a été ajoutée !');
       setSuccessMessage('Variété ajoutée avec succès !');
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
+      // setTimeout(() => {
+      //   setSuccessMessage('');
+      // }, 3000);
     };
 
     window.addEventListener('parcelleAjoutee', handleParcelleAjoutee);
@@ -98,7 +100,8 @@ export default function ParcellesList() {
       })
       .catch((err) => {
         console.error(err);
-        alert("Erreur lors de la suppression.");
+        setErrorMessage("Erreur, votre parcelle contient des pousses.");
+        setTimeout(() => setErrorMessage(''), 3000);
       });
   };
 
@@ -119,9 +122,10 @@ export default function ParcellesList() {
         </div>
       )}
 
+
       <div className='item-liste'>
         {parcelles.length === 0 ? (
-          <p>Aucune parcelle trouvée.</p>
+          <p>Vous n’avez encore créé aucune parcelle. Cliquez sur le bouton <strong className='btn-none-parcelle'> + </strong> pour commencer !</p>
         ) : (
           <ul className="list-group">
             {parcelles.map((p) => (
@@ -143,6 +147,11 @@ export default function ParcellesList() {
         <div className="popup-confirmation">
           <div className="popup-content">
             <p>Confirmez-vous la suppression de cette parcelle ?</p>
+            {errorMessage && (
+            <div className="alert alert-danger">
+              {errorMessage}
+            </div>
+            )}
             <button onClick={deleteParcelle} className="delete ">Oui, supprimer</button>
             <button onClick={cancelDelete} className="cancel bouton-vert">Annuler</button>
           </div>
