@@ -28,7 +28,6 @@ const PlantesList = () => {
       setLoading(true);
 
       const url = idCat === null ? `${Base_URL}/ListePlant` : `${Base_URL}/ListePlant/${idCat}`;
-      console.log("FetchPlantes -> idCat:", idCat, "URL:", url);
 
       const res = await fetch(url);
       const data = await res.json();
