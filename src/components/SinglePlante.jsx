@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "./SiglePlante.css"
 import { Link } from "react-router-dom";
+import planteNot from '../assets/media/plante-not.png';
 
 
 const SinglePlante = () => {
@@ -75,7 +76,7 @@ const SinglePlante = () => {
                     <div className="card h-100">
                         <div className='bloc-image'>
                             <img
-                            src={v.imageUrl ?? 'https://www.svgrepo.com/show/268910/tomato.svg'}
+                            src={v.image ?? planteNot}
                             alt={v.libelle}
                             className="card-img-top"
                             style={{ objectFit: 'cover', height: '200px' }}
